@@ -1,0 +1,120 @@
+/* widget styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.bot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    width: 120px;
+}
+
+.chat-modal {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 450px;
+    z-index: 9999;
+    background-color: rgb(255, 255, 255);
+    border: 0;
+    border-radius: 10px 0 0 0;
+    max-height: 850px;
+}
+
+.modal-header {
+    background-color: #3D1A4F;
+    background-image: url("public/fundo_de_tela.png");
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    border-radius: 10px 0 0;
+    position: relative;
+}
+
+.initial-click-icon {
+    transition: height 1s ease;
+}
+
+.maximize-btn {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 10px;
+    color: #f0f0f0;
+    display: none; 
+}
+
+
+.minimize-btn,
+.close-btn {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 10px;
+    color: #f0f0f0;
+}
+
+.minimize-btn.hide {
+    display: none !important; 
+}
+
+
+.chat-iframe-container {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease;
+}
+
+.chat-iframe-container.height-zero {
+    height: 0 !important; /* Use !important para garantir que a classe prevaleça */
+}
+
+
+.chat-iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+@media screen and (max-width: 768px) {
+
+    
+    .minimize-btn,
+    .maximize-btn,
+    .close-btn {
+        font-size: 25px; /* Reduza o tamanho da fonte dos botões */
+    }
+
+    .maximize-btn {
+        margin: 0 0 0 20px; /* Reduza a margem entre os botões */
+    }
+
+    .close-btn {
+        margin: 0 20px 0 0; /* Reduza a margem entre os botões */
+    }
+
+    .minimize-btn {
+        margin: 0 0 0 20px; /* Reduza a margem entre os botões */
+    }
+
+
+    .bot-icon {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .chat-modal {
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        border: 0;
+        border-radius: 0;
+        cursor: pointer;
+    }
+
+}
