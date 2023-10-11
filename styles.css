@@ -17,14 +17,14 @@ body {
 
 .chat-modal {
     position: fixed;
-    bottom: 10px;
+    bottom: 0;
     right: 10px;
-    width: 450px;
+    width: 400px;
     z-index: 9999;
     background-color: rgb(255, 255, 255);
     border: 0;
     border-radius: 10px 0 0 0;
-    max-height: 850px;
+    max-height: 95vh;
 }
 
 .modal-header {
@@ -81,7 +81,7 @@ body {
     border: 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
 
     
     .minimize-btn,

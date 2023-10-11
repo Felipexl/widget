@@ -7,6 +7,11 @@
 </head>
 
 <body>
+    <div style="text-align: center;">
+        <a href="home.html" style="display: inline-block; padding: 10px 20px; 
+        background-color: #e74c3c; color: #fff; text-decoration: none; font-weight: bold; border-radius: 5px;">Ir para o teste do Chatbase</a>
+      </div>
+            
     <img src="public/sol_icon.png" alt="Sol Icon" id="sol_icon" class="bot-icon initial-click-icon">
 
     <script>
@@ -19,7 +24,7 @@
         function toggleChatWidget() {
             if (widgetOpen) {
                 if (chatIframeContainer.style.height === "0px") {
-                    chatIframeContainer.style.height = "90vh";
+                    chatIframeContainer.style.height = "70vh";
                     minimizeBtn.style.display = "block";
                     maximizeBtn.style.display = "none";
                 } else {
