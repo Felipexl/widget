@@ -1,0 +1,123 @@
+
+        
+<img src="public/sol_icon.png" alt="Sol Icon" id="sol_icon" class="bot-icon initial-click-icon">
+
+<script>
+    var widgetOpen = false;
+    var chatModal;
+    var chatIframeContainer;
+    var minimizeBtn;
+    var maximizeBtn;
+
+    function toggleChatWidget() {
+        if (widgetOpen) {
+            if (chatIframeContainer.style.height === "0px") {
+                chatIframeContainer.style.height = "70vh";
+                minimizeBtn.style.display = "block";
+                maximizeBtn.style.display = "none";
+            } else {
+                chatIframeContainer.style.height = "0";
+                minimizeBtn.style.display = "none";
+                maximizeBtn.style.display = "block";
+            }
+        }
+    }
+
+    document.getElementById("sol_icon").addEventListener("click", function () {
+        if (!widgetOpen) {
+            openChatWidget();
+        } else {
+            toggleChatWidget();
+        }
+    });
+
+    function resetChatWidget() {
+        if (chatModal) {
+            chatModal.remove();
+        }
+
+        widgetOpen = false;
+        chatModal = null;
+        chatIframeContainer = null;
+        minimizeBtn = null;
+        maximizeBtn = null;
+
+        document.getElementById("sol_icon").style.display = "block";
+    }
+
+    document.getElementById("sol_icon").addEventListener("click", function () {
+        resetChatWidget();
+        openChatWidget();
+    });
+
+    function openChatWidget() {
+        if (!widgetOpen) {
+            chatModal = document.createElement("div");
+            chatModal.classList.add("chat-modal");
+
+            var modalHeader = document.createElement("div");
+            modalHeader.classList.add("modal-header");
+
+            minimizeBtn = document.createElement("span");
+            minimizeBtn.classList.add("minimize-btn");
+            minimizeBtn.textContent = "-";
+            minimizeBtn.addEventListener("click", function () {
+                chatIframeContainer.style.height = "0";
+                minimizeBtn.classList.add("hide"); 
+                maximizeBtn.style.display = "block";
+                document.getElementById("sol_icon").style.display = "none";
+            });
+
+            maximizeBtn = document.createElement("span");
+            maximizeBtn.classList.add("maximize-btn");
+            maximizeBtn.textContent = "+";
+            maximizeBtn.style.display = "none";
+            maximizeBtn.addEventListener("click", function () {
+                chatIframeContainer.style.height = "90vh";
+                minimizeBtn.classList.remove("hide"); 
+                maximizeBtn.style.display = "none";
+            });
+
+            var closeBtn = document.createElement("span");
+            closeBtn.classList.add("close-btn");
+            closeBtn.textContent = "x";
+            closeBtn.addEventListener("click", function () {
+                chatIframeContainer.classList.add("height-zero"); 
+                setTimeout(function () {
+                    closeChatWidget();
+                }, 500); 
+            });
+
+            modalHeader.appendChild(minimizeBtn);
+            modalHeader.appendChild(maximizeBtn);
+            modalHeader.appendChild(closeBtn);
+
+            chatModal.appendChild(modalHeader);
+
+            chatIframeContainer = document.createElement("div");
+            chatIframeContainer.classList.add("chat-iframe-container");
+
+            var iframe = document.createElement("iframe");
+            iframe.src = "https://solgpt.staging.solides.com.br/";
+            iframe.classList.add("chat-iframe");
+
+            chatIframeContainer.appendChild(iframe);
+
+            chatModal.appendChild(chatIframeContainer);
+
+            document.body.appendChild(chatModal);
+
+            chatIframeContainer.style.height = "0";
+
+            setTimeout(function () {
+                chatIframeContainer.style.height = "90vh";
+            }, 100);
+
+            widgetOpen = true;
+        }
+    }
+
+    function closeChatWidget() {
+        resetChatWidget();
+    }
+</script>

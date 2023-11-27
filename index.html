@@ -7,131 +7,48 @@
 </head>
 
 <body>
+    <!-- Botão para mudança de página -->
     <div style="text-align: center;">
         <a href="home.html" style="display: inline-block; padding: 10px 20px; 
-        background-color: #e74c3c; color: #fff; text-decoration: none; font-weight: bold; border-radius: 5px;">Ir para o teste do Chatbase</a>
-      </div>
-            
-    <img src="public/sol_icon.png" alt="Sol Icon" id="sol_icon" class="bot-icon initial-click-icon">
+        background-color: #e74c3c; color: #fff; text-decoration: none; font-weight: bold; border-radius: 5px;">Teste do Chatbase</a>
+    </div>
+
+    <!-- Feedback da Track -->
+    <div id="track_container">
+        <span id="fecharFeedbackBtn" class="fecharFeedbackBtn" onclick="fecharTrackWidget()">&times;</span>
+    </div> 
+
+    <script src="WidgetIframe.js"></script>
+
+    <!-- Script chatbase -->
+    <script>
+        window.embeddedChatbotConfig = {
+            chatbotId: "AzdpCcFoHZsaCfe_EMd3r",
+            domain: "www.chatbase.co"
+        };
+    </script>
+    <script src="https://www.chatbase.co/embed.min.js" chatbotId="AzdpCcFoHZsaCfe_EMd3r" domain="www.chatbase.co"
+        defer></script>
 
     <script>
-        var widgetOpen = false;
-        var chatModal;
-        var chatIframeContainer;
-        var minimizeBtn;
-        var maximizeBtn;
-
-        function toggleChatWidget() {
-            if (widgetOpen) {
-                if (chatIframeContainer.style.height === "0px") {
-                    chatIframeContainer.style.height = "70vh";
-                    minimizeBtn.style.display = "block";
-                    maximizeBtn.style.display = "none";
-                } else {
-                    chatIframeContainer.style.height = "0";
-                    minimizeBtn.style.display = "none";
-                    maximizeBtn.style.display = "block";
-                }
-            }
+        // Função para fechar o widget de track
+        function fecharTrackWidget() {
+            var trackContainer = document.getElementById('track_container');
+            trackContainer.style.display = 'none';
         }
 
-        document.getElementById("sol_icon").addEventListener("click", function () {
-            if (!widgetOpen) {
-                openChatWidget();
-            } else {
-                toggleChatWidget();
-            }
+        // Execute a função após o DOM ser totalmente carregado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Aguarde o script existente ser executado e criar o ícone do chatbase e seu ouvinte de evento
+            setTimeout(function () {
+                // Adicionar ouvinte de evento ao ícone de chatbase existente
+                document.getElementById('chatbase-bubble-button').addEventListener('click', function () {
+                    // Exibir o widget de track
+                    var trackContainer = document.getElementById('track_container');
+                    trackContainer.style.display = 'block';
+                });
+            }, 1000); // Ajustar o valor do timeout com base no tempo que você estima que o script leva para ser executado
         });
-
-        function resetChatWidget() {
-            if (chatModal) {
-                chatModal.remove();
-            }
-
-            widgetOpen = false;
-            chatModal = null;
-            chatIframeContainer = null;
-            minimizeBtn = null;
-            maximizeBtn = null;
-
-            document.getElementById("sol_icon").style.display = "block";
-        }
-
-        document.getElementById("sol_icon").addEventListener("click", function () {
-            resetChatWidget();
-            openChatWidget();
-        });
-
-        function openChatWidget() {
-            if (!widgetOpen) {
-                chatModal = document.createElement("div");
-                chatModal.classList.add("chat-modal");
-
-                var modalHeader = document.createElement("div");
-                modalHeader.classList.add("modal-header");
-
-                minimizeBtn = document.createElement("span");
-                minimizeBtn.classList.add("minimize-btn");
-                minimizeBtn.textContent = "-";
-                minimizeBtn.addEventListener("click", function () {
-                    chatIframeContainer.style.height = "0";
-                    minimizeBtn.classList.add("hide"); 
-                    maximizeBtn.style.display = "block";
-                    document.getElementById("sol_icon").style.display = "none";
-                });
-
-                maximizeBtn = document.createElement("span");
-                maximizeBtn.classList.add("maximize-btn");
-                maximizeBtn.textContent = "+";
-                maximizeBtn.style.display = "none";
-                maximizeBtn.addEventListener("click", function () {
-                    chatIframeContainer.style.height = "90vh";
-                    minimizeBtn.classList.remove("hide"); 
-                    maximizeBtn.style.display = "none";
-                });
-
-                var closeBtn = document.createElement("span");
-                closeBtn.classList.add("close-btn");
-                closeBtn.textContent = "x";
-                closeBtn.addEventListener("click", function () {
-                    chatIframeContainer.classList.add("height-zero"); 
-                    setTimeout(function () {
-                        closeChatWidget();
-                    }, 500); 
-                });
-
-                modalHeader.appendChild(minimizeBtn);
-                modalHeader.appendChild(maximizeBtn);
-                modalHeader.appendChild(closeBtn);
-
-                chatModal.appendChild(modalHeader);
-
-                chatIframeContainer = document.createElement("div");
-                chatIframeContainer.classList.add("chat-iframe-container");
-
-                var iframe = document.createElement("iframe");
-                iframe.src = "https://solgpt.staging.solides.com.br/";
-                iframe.classList.add("chat-iframe");
-
-                chatIframeContainer.appendChild(iframe);
-
-                chatModal.appendChild(chatIframeContainer);
-
-                document.body.appendChild(chatModal);
-
-                chatIframeContainer.style.height = "0";
-
-                setTimeout(function () {
-                    chatIframeContainer.style.height = "90vh";
-                }, 100);
-
-                widgetOpen = true;
-            }
-        }
-
-        function closeChatWidget() {
-            resetChatWidget();
-        }
     </script>
 </body>
 
