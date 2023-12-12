@@ -1,57 +1,51 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    position: relative;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
-
-
-
+/* widget da tracker */
 div#track_container {
   display: none;
   text-align: center;
   position: fixed;
-  bottom: 13rem;
-  right: 7rem;
+  bottom: 15rem; /* Ajuste conforme necessário */
+  right: 30rem; /* Ajuste conforme necessário */
   z-index: 9999999999999999;
 }
 
-
-
-.widget {
-  position: relative;
-  z-index: 9999999999999999;
-
-}
-
-div#track__widget {
-    position: relative;
-  }
-
-/* ícine da tracker */
+/* esconder ícone da tracker */
 div#track_container img {
   width: 0px; 
 }
-
 
 /* botões like e dislike */
 svg {
   width: 60%;
   padding-left: 10px;
-
 }
 
 /* botão "x" */
 .fecharFeedbackBtn {
-  
   position: absolute;
   right: 10px;
   font-size: 20px;
   cursor: pointer;
   z-index: 9999999999999999;
-
 }
 
+/* Responsividade para telas menores */
+@media screen and (max-width: 767px) {
+  div#track_container {
+      bottom: 5rem; /* Ajuste conforme necessário */
+      right: 3rem; /* Ajuste conforme necessário */
+  }
+
+  svg {
+      width: 100%;
+      padding-left: 0;
+  }
+}

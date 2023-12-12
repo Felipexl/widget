@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Minha Página</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,10 +18,9 @@
 
     <!-- Feedback da Track -->
     <div id="track_container">
-        <span id="fecharFeedbackBtn" class="fecharFeedbackBtn" onclick="fecharTrackWidget()">&times;</span>
+       <span id="fecharFeedbackBtn" class="fecharFeedbackBtn" onclick="fecharTrackWidget()">&times;</span>
     </div> 
 
-    <script src="WidgetIframe.js"></script>
 
     <!-- Script chatbase -->
     <script>
@@ -30,26 +32,32 @@
     <script src="https://www.chatbase.co/embed.min.js" chatbotId="AzdpCcFoHZsaCfe_EMd3r" domain="www.chatbase.co"
         defer></script>
 
-    <script>
-        // Função para fechar o widget de track
-        function fecharTrackWidget() {
-            var trackContainer = document.getElementById('track_container');
-            trackContainer.style.display = 'none';
-        }
-
-        // Execute a função após o DOM ser totalmente carregado
-        document.addEventListener('DOMContentLoaded', function () {
-            // Aguarde o script existente ser executado e criar o ícone do chatbase e seu ouvinte de evento
-            setTimeout(function () {
-                // Adicionar ouvinte de evento ao ícone de chatbase existente
-                document.getElementById('chatbase-bubble-button').addEventListener('click', function () {
-                    // Exibir o widget de track
-                    var trackContainer = document.getElementById('track_container');
-                    trackContainer.style.display = 'block';
-                });
-            }, 1000); // Ajustar o valor do timeout com base no tempo que você estima que o script leva para ser executado
-        });
-    </script>
+        <script>
+            // Função para fechar o widget de track
+            function fecharTrackWidget() {
+                var trackContainer = document.getElementById('track_container');
+                trackContainer.style.display = 'none';
+            }
+        
+            document.addEventListener('DOMContentLoaded', function () {
+                setTimeout(function () {
+                    document.getElementById('chatbase-bubble-button').addEventListener('click', function () {
+                        var trackContainer = document.getElementById('track_container');
+                        trackContainer.style.display = 'block';
+        
+                        // Carrega o script do widget da Track dinamicamente
+                        var scriptTrack = document.createElement('script');
+                        scriptTrack.src = 'WidgetIframe.js';  // Substitua pelo caminho do seu script da Track
+                        document.head.appendChild(scriptTrack);
+        
+                        // Mostra o botão de fechar
+                        var fecharBtn = document.getElementById('fecharFeedbackBtn');
+                        fecharBtn.style.display = 'block';
+                    });
+                }, 1000);
+            });
+        </script>
+        
 </body>
 
 </html>
