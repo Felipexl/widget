@@ -7,9 +7,11 @@
 
     <title>Minha Página</title>
     <link rel="stylesheet" href="styles.css">
+    
 </head>
 
 <body>
+    
     <!-- Botão para mudança de página -->
     <div style="text-align: center;">
         <a href="home.html" style="display: inline-block; padding: 10px 20px; 
@@ -25,38 +27,21 @@
     <!-- Script chatbase -->
     <script>
         window.embeddedChatbotConfig = {
-            chatbotId: "AzdpCcFoHZsaCfe_EMd3r",
-            domain: "www.chatbase.co"
-        };
-    </script>
-    <script src="https://www.chatbase.co/embed.min.js" chatbotId="AzdpCcFoHZsaCfe_EMd3r" domain="www.chatbase.co"
-        defer></script>
-
-        <script>
-            // Função para fechar o widget de track
-            function fecharTrackWidget() {
-                var trackContainer = document.getElementById('track_container');
-                trackContainer.style.display = 'none';
-            }
-        
-            document.addEventListener('DOMContentLoaded', function () {
-                setTimeout(function () {
-                    document.getElementById('chatbase-bubble-button').addEventListener('click', function () {
-                        var trackContainer = document.getElementById('track_container');
-                        trackContainer.style.display = 'block';
-        
-                        // Carrega o script do widget da Track dinamicamente
-                        var scriptTrack = document.createElement('script');
-                        scriptTrack.src = 'WidgetIframe.js';  // Substitua pelo caminho do seu script da Track
-                        document.head.appendChild(scriptTrack);
-        
-                        // Mostra o botão de fechar
-                        var fecharBtn = document.getElementById('fecharFeedbackBtn');
-                        fecharBtn.style.display = 'block';
-                    });
-                }, 1000);
-            });
+        chatbotId: "m4lwzrOeqcvZ19GOLzOnv",
+        domain: "www.chatbase.co"
+        }
         </script>
+        <script
+        src="https://www.chatbase.co/embed.min.js"
+        chatbotId="m4lwzrOeqcvZ19GOLzOnv"
+        domain="www.chatbase.co"
+        defer>
+        </script>
+    
+      
+
+      
+      
 
         
 <iframe style="height:100vh;width:100vw" frameBorder="0" 
