@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        var kommunicateSettings = {
+            "appId": "2081073a7bdae6adc73da1db7fb62297",
+            "popupWidget": true,
+            "automaticChatOpenOnNavigation": true,
+            "primaryCTA": "CSAT_RATING",  // Configura o CSAT como primaryCTA
+            "csatRating": true  // Habilita o CSAT Rating
+        };
+    
+        (function(d, m){
+            var kommunicate = m; kommunicate._globals = kommunicateSettings;
+            var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+            s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+            window.kommunicate = m;
+            
+            // Adicione um evento que será executado quando o widget for carregado
+            s.onload = function() {
+                // Substitua o ícone SVG do CSAT rating
+                var csatTriggerButton = document.getElementById('km-csat-trigger');
+                if (csatTriggerButton) {
+                    var newIcon = document.createElement('img');
+                    newIcon.setAttribute('src', 'img/like.png');
+                    newIcon.setAttribute('width', '16');
+                    newIcon.setAttribute('height', '16');
+                    newIcon.setAttribute('alt', 'Like Icon');
+                    
+                    // Substitua o ícone antigo pelo novo
+                    var oldIcon = csatTriggerButton.querySelector('svg');
+                    if (oldIcon) {
+                        csatTriggerButton.replaceChild(newIcon, oldIcon);
+                    }
+                }
+            };
+        })(document, window.kommunicate || {});
+    </script>
+    
+</body>
+</html>
