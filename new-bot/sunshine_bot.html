@@ -6205,6 +6205,18 @@
   <script>
     Smooch.init({
       integrationId: "668bd805d46b43ab81e18fe4", // Adicione o ID de integração aqui
+      prechatCapture: {
+            enabled: true,
+            enableEmailLinking: true,
+            fields: [
+                {
+                    type: 'email',
+                    name: 'email',
+                    label: 'Email',
+                    placeholder: 'your@email.com'
+                },
+        ]},
+
       canUserSeeConversationList: false,
       businessName: 'Sol',
       businessIconUrl: 'https://www.chatbase.co/_next/image?url=https%3A%2F%2Fbackend.chatbase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Fchatbots-profile-pictures%2F980f4fa5-8364-48c5-9606-0d4f2e14ca45%2Fqu6WBKDqKHrTs4tsi6yFe.jpg%3Fwidth%3D35%26quality%3D50&w=48&q=75&dpl=dpl_8Vboo7iLBUsnfmfHGx2Nf6xLya9S',
@@ -6217,7 +6229,9 @@
         messageDelivered: 'Enviada',
         cmessageRelativeTimeMinute: '{value}m atrás',
 
-      }
+      },
+
+      
     }).then(function (data) {
         Smooch.createConversation({
           metadata: {
