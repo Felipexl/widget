@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        #container #conversation .logo {
+          display: none !important;
+        }
+      </style>
+
     <script>
+
+        
+
         !(function (o, d, s, e, f) {
             var i, a, p, c = [], h = [];
             function t() {
@@ -67,7 +77,11 @@
             n.open("GET", "https://" + e + ".webloader.smooch.io/", !0),
             (n.responseType = "json"), n.send();
         })(window, document, "Smooch", "668bd805d46b43ab81e18fe4", "5");
+
     </script>
+
+
+     
 </head>
 <body>
     <script>
@@ -76,9 +90,11 @@
         function initSmooch() {
             Smooch.init({
                 integrationId: "668bd805d46b43ab81e18fe4",
+                displayStyle: 'button',
+                buttonIconUrl: 'https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png',
                 customColors: {
                     brandColor: "3D1A4F",
-                    conversationColor: '80297d'
+                    conversationColor: '80297d'                    
                 },
                 menuItems: {
                     imageUpload: true,
@@ -93,7 +109,10 @@
                     prechatCaptureGreetingText: "Olá! Precisamos de algumas informações antes de continuar:",
                     prechatCaptureConfirmationText: "Obrigado pelas informações!",
                     newConversationButtonText: "Nova conversa",
-                    inputPlaceholderBlocked: 'Preencha as informações acima.'
+                    inputPlaceholderBlocked: 'Preencha as informações acima.',
+                    uploadPhoto: 'Anexar imagem',
+                    uploadDocument: 'Anexar arquivo',
+                    conversationListHeaderText:'Minhas conversas'
                 },
                 businessName: 'Sol',
                 businessIconUrl: 'https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png',
