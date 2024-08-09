@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Chatbot</title>
 
     <style>
@@ -40,14 +40,14 @@
         function t() {
           var t = "5";
           try {
-            if (!f) throw new Error(t);
+            if (!f) 
+              throw new Error(t);
             var e,
               n = "https://cdn.smooch.io/",
               r = "smooch";
-            e =
-              "string" == typeof this.response
-                ? JSON.parse(this.response)
-                : this.response;
+            e = "string" == typeof this.response
+              ? JSON.parse(this.response)
+              : this.response;
             var o = f.match(/([0-9]+)\.?([0-9]+)?\.?([0-9]+)?/),
               s = o && o[1],
               i = o && o[2],
@@ -57,28 +57,32 @@
             if (e.url || p || c) {
               var h = d.getElementsByTagName("script")[0],
                 u = d.createElement("script");
-              if (((u.async = !0), a)) u.src = c || n + r + "." + f + ".min.js";
+              if (((u.async = !0), a)) 
+                u.src = c || n + r + "." + f + ".min.js";
               else {
-                if (!(5 <= s && p)) throw new Error(t);
+                if (!(5 <= s && p)) 
+                  throw new Error(t);
                 u.src = p;
               }
-              h.parentNode.insertBefore(u, h);
+              h
+                .parentNode
+                .insertBefore(u, h);
             }
           } catch (e) {
             e.message === t && console.error(e);
           }
-        }
-        (o[s] = {
+        }(o[s] = {
           init: function () {
             i = arguments;
             var t = {
-              then: function (e) {
-                return h.push({ type: "t", next: e }), t;
-              },
-              catch: function (e) {
-                return h.push({ type: "c", next: e }), t;
-              },
-            };
+                then: function (e) {
+                  return h.push({type: "t", next: e}),
+                  t;
+                }, catch  : function (e) {
+                  return h.push({type: "c", next: e}),
+                  t;
+                }
+              };
             return t;
           },
           on: function () {
@@ -89,22 +93,29 @@
           },
           destroy: function () {
             p = arguments;
-          },
-        }),
-          (o.__onWebMessengerHostReady__ = function (e) {
-            if ((delete o.__onWebMessengerHostReady__, (o[s] = e), i))
-              for (var t = e.init.apply(e, i), n = 0; n < h.length; n++) {
-                var r = h[n];
-                t = "t" === r.type ? t.then(r.next) : t.catch(r.next);
-              }
-            a && e.render.apply(e, a), p && e.destroy.apply(e, p);
-            for (n = 0; n < c.length; n++) e.on.apply(e, c[n]);
-          });
+          }
+        }), (o.__onWebMessengerHostReady__ = function (e) {
+          if ((delete o.__onWebMessengerHostReady__, (o[s] = e), i)) 
+            for (var t = e.init.apply(e, i), n = 0; n < h.length; n++) {
+              var r = h[n];
+              t = "t" === r.type
+                ? t.then(r.next)
+                : t.catch(r.next);
+            }
+          a && e
+            .render
+            .apply(e, a),
+          p && e
+            .destroy
+            .apply(e, p);
+          for (n = 0; n < c.length; n++) 
+            e
+              .on
+              .apply(e, c[n]);
+          }
+        );
         var n = new XMLHttpRequest();
-        n.addEventListener("load", t),
-          n.open("GET", "https://" + e + ".webloader.smooch.io/", !0),
-          (n.responseType = "json"),
-          n.send();
+        n.addEventListener("load", t), n.open("GET", "https://" + e + ".webloader.smooch.io/", !0), (n.responseType = "json"), n.send();
       })(window, document, "Smooch", "668bd805d46b43ab81e18fe4", "5");
     </script>
   </head>
@@ -119,8 +130,7 @@
           }
 
           if (iframe) {
-            const iframeDocument =
-              iframe.contentDocument || iframe.contentWindow.document;
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
             const container = iframeDocument.querySelector("#container");
             if (container) {
               const wrapper = container.querySelector("#wrapper");
@@ -130,119 +140,111 @@
               }
             }
             const logoContainer = iframeDocument.querySelector(".logo");
-            if (logoContainer) logoContainer.style.display = "none";
+            if (logoContainer) 
+              logoContainer.style.display = "none";
+            
+            // This event triggers when the widget is opened
+            Smooch.on('widget:opened', function () {
+              console.log('Widget is opened!');
+              iframe
+                .classList
+                .add("mobile-open-web-messenger-container")
+            });
+
+            // This event triggers when the widget is closed
+            Smooch.on('widget:closed', function () {
+              console.log('Widget is closed!');
+              iframe
+                .classList
+                .remove("mobile-open-web-messenger-container")
+            });
           }
         };
 
         const delegate = {
           beforeDisplay(message, data) {
-            if (
-              message.displayName === "Sol" ||
-              message.id === "66b20cf33a8bbabbc59bdb24"
-            )
-              message.avatarUrl =
-                "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
-
+            if (message.displayName === "Sol" || message.id === "66b20cf33a8bbabbc59bdb24") 
+              message.avatarUrl = "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
+            
             removeFooterLogo();
             return message;
-          },
+          }
         };
 
-        Smooch.init({
-          integrationId: "66b22103406aeaa20adf3bc4",
-          displayStyle: "button",
-          buttonIconUrl:
-            "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-          customColors: {
-            brandColor: "3D1A4F",
-            conversationColor: "80297d",
-          },
-          multiConvoEnabled: true,
-          menuItems: {
-            imageUpload: true,
-            fileUpload: true,
-            shareLocation: false,
-          },
-          customText: {
-            inputPlaceholder: "Escreva sua mensagem...",
-            messageDelivered: "Enviada",
-            messageRelativeTimeJustNow: "Agora",
-            messageRelativeTimeMinute: "{value}m atrás",
-            prechatCaptureGreetingText:
-              "Olá! Precisamos de algumas informações antes de continuar:",
-            prechatCaptureConfirmationText: "Obrigado pelas informações!",
-            newConversationButtonText: "Nova conversa",
-            inputPlaceholderBlocked: "Preencha as informações acima.",
-            uploadPhoto: "Anexar imagem",
-            uploadDocument: "Anexar arquivo",
-            conversationListHeaderText: "Minhas conversas",
-          },
-          businessName: "Sol",
-          businessIconUrl:
-            "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-          prechatCapture: {
-            avatarUrl:
-              "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-            enabled: true,
-            fields: [
-              {
-                type: "text",
-                name: "name",
-                label: "Nome",
-                placeholder: "Digite seu nome",
-              },
-              {
-                type: "email",
-                name: "email",
-                label: "Email",
-                placeholder: "Digite seu email",
-              },
-            ],
-          },
-          delegate,
-        })
+        Smooch
+          .init({
+            integrationId: "66b4c16a05de41f0900493e1",
+            displayStyle: "button",
+            canUserSeeConversationList: false,
+            buttonIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+            customColors: {
+              brandColor: "3D1A4F",
+              conversationColor: "80297d"
+            },
+            menuItems: {
+              imageUpload: true,
+              fileUpload: true,
+              shareLocation: false
+            },
+            customText: {
+              inputPlaceholder: "Escreva sua mensagem...",
+              messageDelivered: "Enviada",
+              messageRelativeTimeJustNow: "Agora",
+              messageRelativeTimeMinute: "{value}m atrás",
+              prechatCaptureGreetingText: "Olá! Precisamos de algumas informações antes de continuar:",
+              prechatCaptureConfirmationText: "Obrigado pelas informações!",
+              newConversationButtonText: "Nova conversa",
+              inputPlaceholderBlocked: "Preencha as informações acima.",
+              uploadPhoto: "Anexar imagem",
+              uploadDocument: "Anexar arquivo",
+              conversationListHeaderText: "Minhas conversas"
+            },
+            businessName: "Sol",
+            businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+            prechatCapture: {
+              avatarUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+              enabled: true,
+              fields: [
+                {
+                  type: "text",
+                  name: "name",
+                  label: "Nome",
+                  placeholder: "Digite seu nome"
+                }, {
+                  type: "email",
+                  name: "email",
+                  label: "Email",
+                  placeholder: "Digite seu email"
+                }
+              ]
+            },
+            delegate
+          })
           .then(function (data) {
             removeFooterLogo();
 
             Smooch.on("prechatCapture:completed", function (prechatData) {
               userData = prechatData;
-              Smooch.updateUser({
-                givenName: prechatData.name,
-                email: prechatData.email,
-              })
+              Smooch
+                .updateUser({givenName: prechatData.name, email: prechatData.email})
                 .then(function () {
-                  console.log(
-                    "Dados enviados para o Zendesk na captura inicial"
-                  );
+                  console.log("Dados enviados para o Zendesk na captura inicial");
                 })
                 .catch(function (err) {
-                  console.error(
-                    "Erro ao enviar dados para o Zendesk na captura inicial",
-                    err
-                  );
+                  console.error("Erro ao enviar dados para o Zendesk na captura inicial", err);
                 });
             });
 
-            Smooch.on(
-              "conversation:transfer:initiated",
-              function (conversation) {
-                Smooch.updateUser({
-                  givenName: userData.name,
-                  email: userData.email,
+            Smooch.on("conversation:transfer:initiated", function (conversation) {
+              Smooch
+                .updateUser({givenName: userData.name, email: userData.email})
+                .then(function () {
+                  console.log("Dados enviados para o Zendesk na transferência");
                 })
-                  .then(function () {
-                    console.log(
-                      "Dados enviados para o Zendesk na transferência"
-                    );
-                  })
-                  .catch(function (err) {
-                    console.error(
-                      "Erro ao enviar dados para o Zendesk na transferência",
-                      err
-                    );
-                  });
-              }
-            );
+                .catch(function (err) {
+                  console.error("Erro ao enviar dados para o Zendesk na transferência", err);
+                });
+            });
           })
           .catch(function (err) {
             console.error("Erro na inicialização do Smooch", err);
