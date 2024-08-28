@@ -177,8 +177,6 @@
           }
         };
 
-        
-
         Smooch
           .init({
             integrationId: "66b4c16a05de41f0900493e1",
@@ -207,64 +205,17 @@
             },
             businessName: "Sol",
             businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-            prechatCapture: {
-              avatarUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-              enabled: false,
-              fields: [
-                {
-                  type: "text",
-                  name: "name",
-                  label: "Nome",
-                  placeholder: "Digite seu nome"
-                }, {
-                  type: "email",
-                  name: "email",
-                  label: "Email",
-                  placeholder: "Digite seu email"
-                }
-              ]
-            },
             delegate
           })
           .then(function (data) {
             removeFooterLogo();
-
-            Smooch.on("prechatCapture:completed", function (prechatData) {
-              userData = prechatData;
-              Smooch
-                .updateUser({givenName: prechatData.name, email: prechatData.email})
-                .then(function () {
-                  console.log("Dados enviados para o Zendesk na captura inicial");
-                })
-                .catch(function (err) {
-                  console.error("Erro ao enviar dados para o Zendesk na captura inicial", err);
-                });
-            });
-
-            Smooch.on("conversation:transfer:initiated", function (conversation) {
-              Smooch
-                .updateUser({givenName: userData.name, email: userData.email})
-                .then(function () {
-                  console.log("Dados enviados para o Zendesk na transferência");
-                })
-                .catch(function (err) {
-                  console.error("Erro ao enviar dados para o Zendesk na transferência", err);
-                });
-            });
           })
           .catch(function (err) {
-            console.error("Erro na inicialização do Smooch", err);
+            console.error("Erro na inicialização do Smooch:", err);
           });
       }
 
-      // Wait for Smooch to be ready before initializing
-      if (window.Smooch) {
-        initSmooch();
-      } else {
-        window.__onWebMessengerHostReady__ = function () {
-          initSmooch();
-        };
-      }
+      document.addEventListener("DOMContentLoaded", initSmooch);
     </script>
   </body>
 </html>
