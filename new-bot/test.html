@@ -30,6 +30,23 @@
         }
       }
     </style>
+
+
+<script>
+  // Função para definir tags da conversa
+  function addConversationTags() {
+      const tags = ["candidato_teste"];
+      zE('messenger:set', 'conversationTags', tags);
+  }
+
+  // Inicializar o widget e adicionar tags
+  document.addEventListener("DOMContentLoaded", function() {
+      // Adicione tags antes de abrir o widget, se necessário
+      addConversationTags();
+  });
+</script>
+
+
     <script>
       !(function (o, d, s, e, f) {
         var i,
@@ -122,6 +139,22 @@
   <body>
 
     <script>
+      // Função para definir tags da conversa
+      function addConversationTags() {
+          const tags = ["candidato_teste"];
+          if (window.zE) {
+              zE('messenger:set', 'conversationTags', tags);
+          }
+      }
+
+      // Inicializar o widget e adicionar tags
+      document.addEventListener("DOMContentLoaded", function() {
+          // Adicione tags antes de abrir o widget, se necessário
+          addConversationTags();
+      });
+  </script>
+
+    <script>
       !function(e,n,t,r){
           function o(){try{var e;if((e="string"==typeof this.response?JSON.parse(this.response):this.response).url){var t=n.getElementsByTagName("script")[0],r=n.createElement("script");r.async=!0,r.src=e.url,t.parentNode.insertBefore(r,t)}}catch(e){}}var s,p,a,i=[],c=[];e[t]={init:function(){s=arguments;var e={then:function(n){return c.push({type:"t",next:n}),e},catch:function(n){return c.push({type:"c",next:n}),e}};return e},on:function(){i.push(arguments)},render:function(){p=arguments},destroy:function(){a=arguments}},e.__onWebMessengerHostReady__=function(n){if(delete e.__onWebMessengerHostReady__,e[t]=n,s)for(var r=n.init.apply(n,s),o=0;o<c.length;o++){var u=c[o];r="t"===u.type?r.then(u.next):r.catch(u.next)}p&&n.render.apply(n,p),a&&n.destroy.apply(n,a);for(o=0;o<i.length;o++)n.on.apply(n,i[o])};var u=new XMLHttpRequest;u.addEventListener("load",o),u.open("GET","https://"+r+".webloader.smooch.io/",!0),u.responseType="json",u.send()
       }(window,document,"Smooch","668bd805d46b43ab81e18fe4");
@@ -195,8 +228,11 @@
             messageDelivered: "Enviada",
             messageRelativeTimeJustNow: "Agora",
             messageRelativeTimeMinute: "{value}m atrás",
+            newConversationButtonText: "Nova conversa",
+            inputPlaceholderBlocked: "Preencha as informações acima.",
             uploadPhoto: "Anexar imagem",
             uploadDocument: "Anexar arquivo",
+            conversationListHeaderText: "Minhas conversas"
           },
           businessName: "Sol",
           businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
@@ -206,7 +242,6 @@
           Smooch.createConversation({
             metadata: {
               isFirstTimeCustomer: true,
-
             },
           }).then((conversation) => {
             console.log("Hello Sunshine");
