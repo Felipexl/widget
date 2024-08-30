@@ -118,6 +118,8 @@
   </head>
   <body>
     <script>
+      var userData = {};
+
       function initSmooch() {
         var removeFooterLogo = function(iframe) {
           if (!iframe) {
@@ -159,27 +161,27 @@
             brandColor: "3D1A4F",
             conversationColor: "80297d"
           },
-          menuItems: {
-            imageUpload: true,
-            fileUpload: true,
-            shareLocation: false
-          },
-          customText: {
-            inputPlaceholder: "Escreva sua mensagem...",
-            messageDelivered: "Enviada",
-            messageRelativeTimeJustNow: "Agora",
-            messageRelativeTimeMinute: "{value}m atrás",
-            newConversationButtonText: "Nova conversa",
-            inputPlaceholderBlocked: "Preencha as informações acima.",
-            uploadPhoto: "Anexar imagem",
-            uploadDocument: "Anexar arquivo",
-            conversationListHeaderText: "Minhas conversas"
-          },
-          businessName: "Sol",
-          businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png"
+          delegate: {
+            beforeDisplay: function(message, data) {
+              if (message.displayName === "Sol" || message.id === "66b20cf33a8bbabbc59bdb24") {
+                message.avatarUrl = "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
+              }
+              removeFooterLogo();
+              return message;
+            }
+          }
         })
         .then(function(data) {
           removeFooterLogo();
+
+          Smooch.createConversation({
+            metadata: {
+              isFirstTimeCustomer: true,
+            },
+          }).then((conversation) => {
+            console.log("Hello Sunshine");
+          });
+
         })
         .catch(function(err) {
           console.error("Erro na inicialização do Smooch", err);
