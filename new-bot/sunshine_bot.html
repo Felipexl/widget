@@ -1,6 +1,7 @@
 <html>
 
 <head>
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-FJKD0T11B2&amp;l=dataLayer&amp;
@@ -3093,7 +3094,7 @@
       }); var f = d.getElementsByTagName(s)[0],
         j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
           'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-5ND9KNF');
+    })(window, document, 'script', 'dataLayer', 'GTM-PB9JZX4G');
     function gtag() { dataLayer.push(arguments); }
 
   </script>
@@ -5048,120 +5049,7 @@
 
 <!-- widget kommunicate na head -->
 
-<style>
-  body,
-  html {
-    margin: 0;
-    padding: 0;
-    height: 100vh !important;
-  }
 
-  #web-messenger-container {
-    bottom: 100px !important;
-  }
-
-  #web-messenger-container.mobile-open-web-messenger-container {
-    bottom: 0 !important;
-    max-height: 100vh;
-  }
-
-  @media screen and (min-width: 660px) {
-    #web-messenger-container,
-    #web-messenger-container.mobile-open-web-messenger-container {
-      bottom: 100px !important;
-      height: calc(100vh - 100px) !important;
-    }
-  }
-</style>
-<script>
-  !(function (o, d, s, e, f) {
-    var i,
-      a,
-      p,
-      c = [],
-      h = [];
-    function t() {
-      var t = "5";
-      try {
-        if (!f) 
-          throw new Error(t);
-        var e,
-          n = "https://cdn.smooch.io/",
-          r = "smooch";
-        e = "string" == typeof this.response
-          ? JSON.parse(this.response)
-          : this.response;
-        var o = f.match(/([0-9]+)\.?([0-9]+)?\.?([0-9]+)?/),
-          s = o && o[1],
-          i = o && o[2],
-          a = o && o[3],
-          p = e["v" + s],
-          c = e["v" + s + "." + i + ".patch"];
-        if (e.url || p || c) {
-          var h = d.getElementsByTagName("script")[0],
-            u = d.createElement("script");
-          if (((u.async = !0), a)) 
-            u.src = c || n + r + "." + f + ".min.js";
-          else {
-            if (!(5 <= s && p)) 
-              throw new Error(t);
-            u.src = p;
-          }
-          h
-            .parentNode
-            .insertBefore(u, h);
-        }
-      } catch (e) {
-        e.message === t && console.error(e);
-      }
-    }(o[s] = {
-      init: function () {
-        i = arguments;
-        var t = {
-            then: function (e) {
-              return h.push({type: "t", next: e}),
-              t;
-            }, catch  : function (e) {
-              return h.push({type: "c", next: e}),
-              t;
-            }
-          };
-        return t;
-      },
-      on: function () {
-        c.push(arguments);
-      },
-      render: function () {
-        a = arguments;
-      },
-      destroy: function () {
-        p = arguments;
-      }
-    }), (o.__onWebMessengerHostReady__ = function (e) {
-      if ((delete o.__onWebMessengerHostReady__, (o[s] = e), i)) 
-        for (var t = e.init.apply(e, i), n = 0; n < h.length; n++) {
-          var r = h[n];
-          t = "t" === r.type
-            ? t.then(r.next)
-            : t.catch(r.next);
-        }
-      a && e
-        .render
-        .apply(e, a),
-      p && e
-        .destroy
-        .apply(e, p);
-      for (n = 0; n < c.length; n++) 
-        e
-          .on
-          .apply(e, c[n]);
-      }
-    );
-    var n = new XMLHttpRequest();
-    n.addEventListener("load", t), n.open("GET", "https://" + e + ".webloader.smooch.io/", !0), (n.responseType = "json"), n.send();
-  })(window, document, "Smooch", "668bd805d46b43ab81e18fe4", "5");
-</script>
- 
 
 </head>
 
@@ -6221,7 +6109,7 @@
   <script src="https://mfe-cdn-stg.solides.com/styles/tailwind.js" data-nscript="afterInteractive"></script><noscript
     id="analytics">
     <!-- Google Tag Manager (noscript) -->
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ND9KNF" height="0" width="0"
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB9JZX4G" height="0" width="0"
       style="display:none;visibility:hidden"></iframe>
     <!-- End Google Tag Manager (noscript) -->
   </noscript><next-route-announcer>
@@ -6236,150 +6124,8 @@
 
 
   
-<!--Start do widget da kommunicate (body)-->
 
 
-
-<script>
-  let userData = {};
-
-  function initSmooch() {
-    const removeFooterLogo = (iframe) => {
-      if (!iframe) {
-        iframe = document.querySelector("iframe#web-messenger-container");
-      }
-
-      if (iframe) {
-        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        const container = iframeDocument.querySelector("#container");
-        if (container) {
-          const wrapper = container.querySelector("#wrapper");
-          if (wrapper) {
-            wrapper.style.width = "100%";
-            wrapper.style.height = "calc(100vh - 20px)";
-          }
-        }
-        const logoContainer = iframeDocument.querySelector(".logo");
-        if (logoContainer) 
-          logoContainer.style.display = "none";
-        
-        // This event triggers when the widget is opened
-        Smooch.on('widget:opened', function () {
-          console.log('Widget is opened!');
-          iframe
-            .classList
-            .add("mobile-open-web-messenger-container")
-        });
-
-        // This event triggers when the widget is closed
-        Smooch.on('widget:closed', function () {
-          console.log('Widget is closed!');
-          iframe
-            .classList
-            .remove("mobile-open-web-messenger-container")
-        });
-      }
-    };
-
-    const delegate = {
-      beforeDisplay(message, data) {
-        if (message.displayName === "Sol" || message.id === "66b20cf33a8bbabbc59bdb24") 
-          message.avatarUrl = "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
-        
-        removeFooterLogo();
-        return message;
-      }
-    };
-
-    Smooch
-      .init({
-        integrationId: "66b4c16a05de41f0900493e1",
-        displayStyle: "button",
-        canUserSeeConversationList: false,
-        buttonIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-        customColors: {
-          brandColor: "3D1A4F",
-          conversationColor: "80297d"
-        },
-        menuItems: {
-          imageUpload: true,
-          fileUpload: true,
-          shareLocation: false
-        },
-        customText: {
-          inputPlaceholder: "Escreva sua mensagem...",
-          messageDelivered: "Enviada",
-          messageRelativeTimeJustNow: "Agora",
-          messageRelativeTimeMinute: "{value}m atrás",
-          prechatCaptureGreetingText: "Olá! Precisamos de algumas informações antes de continuar:",
-          prechatCaptureConfirmationText: "Obrigado pelas informações!",
-          newConversationButtonText: "Nova conversa",
-          inputPlaceholderBlocked: "Preencha as informações acima.",
-          uploadPhoto: "Anexar imagem",
-          uploadDocument: "Anexar arquivo",
-          conversationListHeaderText: "Minhas conversas"
-        },
-        businessName: "Sol",
-        businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-        prechatCapture: {
-          avatarUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-          enabled: true,
-          fields: [
-            {
-              type: "text",
-              name: "name",
-              label: "Nome",
-              placeholder: "Digite seu nome"
-            }, {
-              type: "email",
-              name: "email",
-              label: "Email",
-              placeholder: "Digite seu email"
-            }
-          ]
-        },
-        delegate
-      })
-      .then(function (data) {
-        removeFooterLogo();
-
-        Smooch.on("prechatCapture:completed", function (prechatData) {
-          userData = prechatData;
-          Smooch
-            .updateUser({givenName: prechatData.name, email: prechatData.email})
-            .then(function () {
-              console.log("Dados enviados para o Zendesk na captura inicial");
-            })
-            .catch(function (err) {
-              console.error("Erro ao enviar dados para o Zendesk na captura inicial", err);
-            });
-        });
-
-        Smooch.on("conversation:transfer:initiated", function (conversation) {
-          Smooch
-            .updateUser({givenName: userData.name, email: userData.email})
-            .then(function () {
-              console.log("Dados enviados para o Zendesk na transferência");
-            })
-            .catch(function (err) {
-              console.error("Erro ao enviar dados para o Zendesk na transferência", err);
-            });
-        });
-      })
-      .catch(function (err) {
-        console.error("Erro na inicialização do Smooch", err);
-      });
-  }
-
-  // Wait for Smooch to be ready before initializing
-  if (window.Smooch) {
-    initSmooch();
-  } else {
-    window.__onWebMessengerHostReady__ = function () {
-      initSmooch();
-    };
-  }
-</script>
   
 
 

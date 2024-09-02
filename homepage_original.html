@@ -2,17 +2,6 @@
 <html lang="pt-br">
 
 <head>
-
- <!-- Google tag (gtag.js) -->
- <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2K5ESX5TD"></script>
- <script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
- 
-   gtag('config', 'G-E2K5ESX5TD');
- </script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chatbot</title>
@@ -134,18 +123,15 @@
 </head>
 
 <body>
-
-
-  
   <script>
     let userData = {};
-  
+
     function initSmooch() {
       const removeFooterLogo = (iframe) => {
         if (!iframe) {
           iframe = document.querySelector("iframe#web-messenger-container");
         }
-  
+
         if (iframe) {
           const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
           const container = iframeDocument.querySelector("#container");
@@ -157,55 +143,37 @@
             }
           }
           const logoContainer = iframeDocument.querySelector(".logo");
-          if (logoContainer) logoContainer.style.display = "none";
-  
-          // Evento de abertura do widget
+          if (logoContainer)
+            logoContainer.style.display = "none";
+
+          // This event triggers when the widget is opened
           Smooch.on('widget:opened', function () {
             console.log('Widget is opened!');
-            iframe.classList.add("mobile-open-web-messenger-container");
-  
-            // Envia o evento de abertura do widget para o GA
-            gtag('event', 'widget_opened', {
-              'event_category': 'Chatbot',
-              'event_label': 'Widget aberto'
-            });
+            iframe
+              .classList
+              .add("mobile-open-web-messenger-container")
           });
-  
-          // Evento de fechamento do widget
+
+          // This event triggers when the widget is closed
           Smooch.on('widget:closed', function () {
             console.log('Widget is closed!');
-            iframe.classList.remove("mobile-open-web-messenger-container");
-  
-            // Envia o evento de fechamento do widget para o GA
-            gtag('event', 'widget_closed', {
-              'event_category': 'Chatbot',
-              'event_label': 'Widget fechado'
-            });
-          });
-  
-          // Evento de envio de mensagem
-          Smooch.on('message:sent', function () {
-            console.log('Mensagem enviada!');
-  
-            // Envia o evento de mensagem enviada para o GA
-            gtag('event', 'message_sent', {
-              'event_category': 'Chatbot',
-              'event_label': 'Mensagem enviada'
-            });
+            iframe
+              .classList
+              .remove("mobile-open-web-messenger-container")
           });
         }
       };
-  
+
       const delegate = {
         beforeDisplay(message, data) {
           if (message.displayName === "Sol" || message.id === "66b20cf33a8bbabbc59bdb24")
             message.avatarUrl = "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
-  
+
           removeFooterLogo();
           return message;
         }
       };
-  
+
       Smooch
         .init({
           integrationId: "66b4c16a05de41f0900493e1",
@@ -238,7 +206,7 @@
             metadata: {
               isFirstTimeCustomer: true,
             },
-  
+
           }).then((conversation) => {
             console.log("Hello Sunshine");
           });
@@ -248,8 +216,8 @@
           console.error("Erro na inicialização do Smooch", err);
         });
     }
-  
-    // Espera o Smooch estar pronto antes de inicializar
+
+    // Wait for Smooch to be ready before initializing
     if (window.Smooch) {
       initSmooch();
     } else {
@@ -258,7 +226,6 @@
       };
     }
   </script>
-  
 </body>
 
 </html>
