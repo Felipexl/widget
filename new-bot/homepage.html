@@ -139,6 +139,7 @@
   
   <script>
     let userData = {};
+    let listenersAdded = false;  // Variável para garantir que os listeners sejam adicionados apenas uma vez
   
     function initSmooch() {
       const removeFooterLogo = (iframe) => {
@@ -159,42 +160,57 @@
           const logoContainer = iframeDocument.querySelector(".logo");
           if (logoContainer) logoContainer.style.display = "none";
   
-          // Evento de abertura do widget
-          Smooch.on('widget:opened', function () {
-            console.log('Widget is opened!');
+          // Verifica se os listeners já foram adicionados
+          if (!listenersAdded) {
+            listenersAdded = true;  // Define a variável como true para evitar duplicações
 
-            
-            iframe.classList.add("mobile-open-web-messenger-container");
+            // Evento de abertura do widget
+            Smooch.on('widget:opened', function () {
+              console.log('Widget is opened!');
+              
+              iframe.classList.add("mobile-open-web-messenger-container");
   
-            // Envia o evento de abertura do widget para o GA
-            gtag('event', 'widget_opened', {
-              'event_category': 'Chatbot',
-              'event_label': 'Widget aberto'
+              // Envia o evento de abertura do widget para o GA
+              gtag('event', 'widget_opened', {
+                'event_category': 'Chatbot',
+                'event_label': 'Widget aberto'
+              });
             });
-          });
   
-          // Evento de fechamento do widget
-          Smooch.on('widget:closed', function () {
-            console.log('Widget is closed!');
-            iframe.classList.remove("mobile-open-web-messenger-container");
+            // Evento de fechamento do widget
+            Smooch.on('widget:closed', function () {
+              console.log('Widget is closed!');
+              iframe.classList.remove("mobile-open-web-messenger-container");
   
-            // Envia o evento de fechamento do widget para o GA
-            gtag('event', 'widget_closed', {
-              'event_category': 'Chatbot',
-              'event_label': 'Widget fechado'
+              // Envia o evento de fechamento do widget para o GA
+              gtag('event', 'widget_closed', {
+                'event_category': 'Chatbot',
+                'event_label': 'Widget fechado'
+              });
             });
-          });
   
-          // Evento de envio de mensagem
-          Smooch.on('message:sent', function () {
-            console.log('Mensagem enviada!');
+            // Evento de envio de mensagem
+            Smooch.on('message:sent', function () {
+              console.log('Mensagem enviada!');
   
-            // Envia o evento de mensagem enviada para o GA
-            gtag('event', 'message_sent', {
-              'event_category': 'Chatbot',
-              'event_label': 'Mensagem enviada'
+              // Envia o evento de mensagem enviada para o GA
+              gtag('event', 'message_sent', {
+                'event_category': 'Chatbot',
+                'event_label': 'Mensagem enviada'
+              });
             });
-          });
+
+            // Evento de recebimento de mensagem
+            Smooch.on('message:received', function () {
+              console.log('Mensagem recebida!');
+  
+              // Envia o evento de mensagem recebida para o GA
+              gtag('event', 'message_received', {
+                'event_category': 'Chatbot',
+                'event_label': 'Mensagem recebida'
+              });
+            });
+          }
         }
       };
   
@@ -236,8 +252,6 @@
           delegate
         })
         .then(function (data) {
-
-          
           Smooch.createConversation({
             metadata: {
               isFirstTimeCustomer: true,
@@ -266,7 +280,9 @@
         initSmooch();
       };
     }
-  </script>
+</script>
+
+
   
 </body>
 
