@@ -162,6 +162,8 @@
           // Evento de abertura do widget
           Smooch.on('widget:opened', function () {
             console.log('Widget is opened!');
+
+            
             iframe.classList.add("mobile-open-web-messenger-container");
   
             // Envia o evento de abertura do widget para o GA
@@ -234,6 +236,8 @@
           delegate
         })
         .then(function (data) {
+
+          
           Smooch.createConversation({
             metadata: {
               isFirstTimeCustomer: true,
@@ -241,6 +245,11 @@
   
           }).then((conversation) => {
             console.log("Hello Sunshine");
+
+            gtag('event', 'first_time_customer', {
+              'event_category': 'Chatbot',
+              'event_label': 'Primeiro atendimento'
+            });
           });
           removeFooterLogo();
         })
