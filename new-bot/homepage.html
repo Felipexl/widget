@@ -194,7 +194,7 @@
               console.log('Mensagem enviada!');
   
               // Envia o evento de mensagem enviada para o GA
-              gtag('event', 'message_sent', {
+              gtag('event', 'message_sent_to_bot', {
                 'event_category': 'Chatbot',
                 'event_label': 'Mensagem enviada'
               });
@@ -205,7 +205,7 @@
               console.log('Mensagem recebida!');
   
               // Envia o evento de mensagem recebida para o GA
-              gtag('event', 'message_received', {
+              gtag('event', 'bot_message_received', {
                 'event_category': 'Chatbot',
                 'event_label': 'Mensagem recebida'
               });
