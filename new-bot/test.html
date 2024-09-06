@@ -1,237 +1,297 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Chatbot</title>
 
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100vh !important;
-      }
+<head>
 
-      #web-messenger-container {
-        bottom: 100px !important;
-      }
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NHD7QZN');</script>
+  <!-- End Google Tag Manager -->
 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot</title>
+
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100vh !important;
+    }
+
+    #web-messenger-container {
+      bottom: 100px !important;
+    }
+
+    #web-messenger-container.mobile-open-web-messenger-container {
+      bottom: 0 !important;
+      max-height: 100vh;
+    }
+
+    @media screen and (min-width: 660px) {
+
+      #web-messenger-container,
       #web-messenger-container.mobile-open-web-messenger-container {
-        bottom: 0 !important;
-        max-height: 100vh;
+        bottom: 100px !important;
+        height: calc(100vh - 100px) !important;
       }
+    }
+  </style>
 
-      @media screen and (min-width: 660px) {
-        #web-messenger-container,
-        #web-messenger-container.mobile-open-web-messenger-container {
-          bottom: 100px !important;
-          height: calc(100vh - 100px) !important;
+  <script>
+    !(function (o, d, s, e, f) {
+      var i,
+        a,
+        p,
+        c = [],
+        h = [];
+      function t() {
+        var t = "5";
+        try {
+          if (!f)
+            throw new Error(t);
+          var e,
+            n = "https://cdn.smooch.io/",
+            r = "smooch";
+          e = "string" == typeof this.response
+            ? JSON.parse(this.response)
+            : this.response;
+          var o = f.match(/([0-9]+)\.?([0-9]+)?\.?([0-9]+)?/),
+            s = o && o[1],
+            i = o && o[2],
+            a = o && o[3],
+            p = e["v" + s],
+            c = e["v" + s + "." + i + ".patch"];
+          if (e.url || p || c) {
+            var h = d.getElementsByTagName("script")[0],
+              u = d.createElement("script");
+            if (((u.async = !0), a))
+              u.src = c || n + r + "." + f + ".min.js";
+            else {
+              if (!(5 <= s && p))
+                throw new Error(t);
+              u.src = p;
+            }
+            h
+              .parentNode
+              .insertBefore(u, h);
+          }
+        } catch (e) {
+          e.message === t && console.error(e);
         }
-      }
-    </style>
-
-    <script>
-      !(function (o, d, s, e, f) {
-        var i,
-          a,
-          p,
-          c = [],
-          h = [];
-        function t() {
-          var t = "5";
-          try {
-            if (!f) 
-              throw new Error(t);
-            var e,
-              n = "https://cdn.smooch.io/",
-              r = "smooch";
-            e = "string" == typeof this.response
-              ? JSON.parse(this.response)
-              : this.response;
-            var o = f.match(/([0-9]+)\.?([0-9]+)?\.?([0-9]+)?/),
-              s = o && o[1],
-              i = o && o[2],
-              a = o && o[3],
-              p = e["v" + s],
-              c = e["v" + s + "." + i + ".patch"];
-            if (e.url || p || c) {
-              var h = d.getElementsByTagName("script")[0],
-                u = d.createElement("script");
-              if (((u.async = !0), a)) 
-                u.src = c || n + r + "." + f + ".min.js";
-              else {
-                if (!(5 <= s && p)) 
-                  throw new Error(t);
-                u.src = p;
-              }
-              h
-                .parentNode
-                .insertBefore(u, h);
+      } (o[s] = {
+        init: function () {
+          i = arguments;
+          var t = {
+            then: function (e) {
+              return h.push({ type: "t", next: e }),
+                t;
+            }, catch: function (e) {
+              return h.push({ type: "c", next: e }),
+                t;
             }
-          } catch (e) {
-            e.message === t && console.error(e);
+          };
+          return t;
+        },
+        on: function () {
+          c.push(arguments);
+        },
+        render: function () {
+          a = arguments;
+        },
+        destroy: function () {
+          p = arguments;
+        }
+      }), (o.__onWebMessengerHostReady__ = function (e) {
+        if ((delete o.__onWebMessengerHostReady__, (o[s] = e), i))
+          for (var t = e.init.apply(e, i), n = 0; n < h.length; n++) {
+            var r = h[n];
+            t = "t" === r.type
+              ? t.then(r.next)
+              : t.catch(r.next);
           }
-        }(o[s] = {
-          init: function () {
-            i = arguments;
-            var t = {
-                then: function (e) {
-                  return h.push({type: "t", next: e}),
-                  t;
-                }, catch  : function (e) {
-                  return h.push({type: "c", next: e}),
-                  t;
-                }
-              };
-            return t;
-          },
-          on: function () {
-            c.push(arguments);
-          },
-          render: function () {
-            a = arguments;
-          },
-          destroy: function () {
-            p = arguments;
-          }
-        }), (o.__onWebMessengerHostReady__ = function (e) {
-          if ((delete o.__onWebMessengerHostReady__, (o[s] = e), i)) 
-            for (var t = e.init.apply(e, i), n = 0; n < h.length; n++) {
-              var r = h[n];
-              t = "t" === r.type
-                ? t.then(r.next)
-                : t.catch(r.next);
-            }
-          a && e
-            .render
-            .apply(e, a),
+        a && e
+          .render
+          .apply(e, a),
           p && e
             .destroy
             .apply(e, p);
-          for (n = 0; n < c.length; n++) 
-            e
-              .on
-              .apply(e, c[n]);
-          }
+        for (n = 0; n < c.length; n++)
+          e
+            .on
+            .apply(e, c[n]);
+      }
         );
-        var n = new XMLHttpRequest();
-        n.addEventListener("load", t), n.open("GET", "https://" + e + ".webloader.smooch.io/", !0), (n.responseType = "json"), n.send();
-      })(window, document, "Smooch", "668bd805d46b43ab81e18fe4", "5");
-    </script>
-  </head>
+      var n = new XMLHttpRequest();
+      n.addEventListener("load", t), n.open("GET", "https://" + e + ".webloader.smooch.io/", !0), (n.responseType = "json"), n.send();
+    })(window, document, "Smooch", "668bd805d46b43ab81e18fe4", "5");
+  </script>
+</head>
 
-  <body>
-    <script>
-      let userData = {};
-      let listenersAdded = false;
-  
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD7QZN"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <script>
+    (function () {
+      var listenersAdded = false;
+
       function initSmooch() {
-        const removeFooterLogo = (iframe) => {
+        var currentDate = new Date().toISOString().slice(0, 7); // Formato YYYY-MM
+        var lastFirstTimeChatDate = localStorage.getItem('lastFirstTimeChatDate');
+        var hasChattedBefore = localStorage.getItem('hasChattedBefore') === 'true';
+
+        var shouldSendFirstTimeChat = !hasChattedBefore || (lastFirstTimeChatDate !== currentDate);
+
+        function removeFooterLogo(iframe) {
           if (!iframe) {
             iframe = document.querySelector("iframe#web-messenger-container");
           }
-  
+
           if (iframe) {
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            const container = iframeDocument.querySelector("#container");
+            var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            var container = iframeDocument.querySelector("#container");
             if (container) {
-              const wrapper = container.querySelector("#wrapper");
+              var wrapper = container.querySelector("#wrapper");
               if (wrapper) {
                 wrapper.style.width = "100%";
                 wrapper.style.height = "calc(100vh - 20px)";
               }
             }
-            const logoContainer = iframeDocument.querySelector(".logo");
-            if (logoContainer)
-              logoContainer.style.display = "none";
-  
-            // Ensure listeners are added only once
+            var logoContainer = iframeDocument.querySelector(".logo");
+            if (logoContainer) logoContainer.style.display = "none";
+
             if (!listenersAdded) {
               listenersAdded = true;
-  
-              // This event triggers when the widget is opened
+
               Smooch.on('widget:opened', function () {
                 console.log('Widget is opened!');
-                iframe
-                  .classList
-                  .add("mobile-open-web-messenger-container")
+                iframe.classList.add("mobile-open-web-messenger-container");
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push ({
+                  'event': 'widget_opened',
+                  'event_category': 'Chatbot',
+                  'event_label': 'Widget aberto'
+                });
               });
-  
-              // This event triggers when the widget is closed
+
               Smooch.on('widget:closed', function () {
                 console.log('Widget is closed!');
-                iframe
-                  .classList
-                  .remove("mobile-open-web-messenger-container")
+                iframe.classList.remove("mobile-open-web-messenger-container");
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push ({
+                'event': 'widget_closed', 
+                  'event_category': 'Chatbot',
+                  'event_label': 'Widget fechado'
+                });
+              });
+
+              Smooch.on('message:sent', function () {
+                console.log('Mensagem enviada!');
+
+                if (shouldSendFirstTimeChat) {
+                  localStorage.setItem('hasChattedBefore', 'true');
+                  localStorage.setItem('lastFirstTimeChatDate', currentDate);
+                  window.dataLayer = window.dataLayer || [];
+                  window.dataLayer.push ({
+                  'event': 'first_time_chat',
+                    'event_category': 'Chatbot',
+                    'event_label': 'Primeiro chat'
+                  });
+                  shouldSendFirstTimeChat = false;
+                }
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                'event': 'message_sent_to_bot', 
+                  'event_category': 'Chatbot',
+                  'event_label': 'Mensagem enviada'
+                });
+              });
+
+              Smooch.on('message:received', function () {
+                console.log('Mensagem recebida!');
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push ({
+                  'event': 'bot_message_received', 
+                  'event_category': 'Chatbot',
+                  'event_label': 'Mensagem recebida'
+                })
+                
               });
             }
           }
-        };
-  
-        const delegate = {
-          beforeDisplay(message, data) {
+        }
+
+        var delegate = {
+          beforeDisplay: function (message, data) {
             if (message.displayName === "Sol" || message.id === "66b20cf33a8bbabbc59bdb24")
               message.avatarUrl = "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
-  
+
             removeFooterLogo();
             return message;
           }
         };
-  
-        Smooch
-          .init({
-            integrationId: "66b4c16a05de41f0900493e1",
-            displayStyle: "button",
-            canUserSeeConversationList: false,
-            buttonIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-            customColors: {
-              brandColor: "3D1A4F",
-              conversationColor: "80297d"
-            },
-            menuItems: {
-              imageUpload: true,
-              fileUpload: true,
-              shareLocation: false
-            },
-            customText: {
-              inputPlaceholder: "Escreva sua mensagem...",
-              messageDelivered: "Enviada",
-              messageRelativeTimeJustNow: "Agora",
-              messageRelativeTimeMinute: "{value}m atrás",
-              uploadPhoto: "Anexar imagem",
-              uploadDocument: "Anexar arquivo",
-            },
-            businessName: "Sol",
-            businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
-            delegate
-          })
-          .then(function (data) {
+
+        Smooch.init({
+          integrationId: "66b4c16a05de41f0900493e1",
+          displayStyle: "button",
+          canUserSeeConversationList: false,
+          buttonIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+          customColors: {
+            brandColor: "3D1A4F",
+            conversationColor: "80297d"
+          },
+          menuItems: {
+            imageUpload: true,
+            fileUpload: true,
+            shareLocation: false
+          },
+          customText: {
+            inputPlaceholder: "Escreva sua mensagem...",
+            messageDelivered: "Enviada",
+            messageRelativeTimeJustNow: "Agora",
+            messageRelativeTimeMinute: "{value}m atrás",
+            uploadPhoto: "Anexar imagem",
+            uploadDocument: "Anexar arquivo"
+          },
+          businessName: "Sol",
+          businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png"
+        })
+          .then(function () {
+            console.log("Widget inicializado.");
+
+            // Cria uma nova conversa
             Smooch.createConversation({
               metadata: {
-                isFirstTimeCustomer: true,
+                isFirstTimeCustomer: !hasChattedBefore
               },
-  
-            }).then((conversation) => {
-              console.log("Hello Sunshine");
+              botIds: ['especialista-em-dp-7rdmi'] // Substitua pelo ID correto do bot
+            }).then(function (conversation) {
+              console.log("Conversa criada com sucesso com o bot: ", conversation);
+            }).catch(function (err) {
+              console.error("Erro ao criar conversa com o bot: ", err);
             });
-            removeFooterLogo();
           })
           .catch(function (err) {
             console.error("Erro na inicialização do Smooch", err);
           });
       }
-  
-      // Wait for Smooch to be ready before initializing
+
       if (window.Smooch) {
         initSmooch();
       } else {
-        window.__onWebMessengerHostReady__ = function () {
-          initSmooch();
-        };
+        window.__onWebMessengerHostReady__ = initSmooch;
       }
-    </script>
-  
-  
-  </body>
+    })();
+  </script>
+
+
+</body>
+
 </html>
