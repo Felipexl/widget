@@ -3,16 +3,6 @@
 
 <head>
 
- <!-- Google tag (gtag.js) -->
- <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2K5ESX5TD"></script>
- <script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
- 
-   gtag('config', 'G-E2K5ESX5TD');
- </script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chatbot</title>
@@ -143,7 +133,7 @@
  
      function initSmooch() {
          var currentDate = new Date().toISOString().slice(0, 7); // Formato YYYY-MM
-         var lastFirstTimeChat9Date = localStorage.getItem('lastFirstTimeChatDate');
+         var lastFirstTimeChatDate = localStorage.getItem('lastFirstTimeChatDate');
          var hasChattedBefore = localStorage.getItem('hasChattedBefore') === 'true';
  
          // Verifica se o evento de first_time_chat já foi enviado este mês
@@ -173,7 +163,9 @@
                      Smooch.on('widget:opened', function() {
                          console.log('Widget is opened!');
                          iframe.classList.add("mobile-open-web-messenger-container");
-                         gtag('event', 'widget_opened', {
+                         window.dataLayer = window.dataLayer || [];
+                         window.dataLayer.push({
+                             'event': 'widget_opened',
                              'event_category': 'Chatbot',
                              'event_label': 'Widget aberto'
                          });
@@ -182,7 +174,9 @@
                      Smooch.on('widget:closed', function() {
                          console.log('Widget is closed!');
                          iframe.classList.remove("mobile-open-web-messenger-container");
-                         gtag('event', 'widget_closed', {
+                         window.dataLayer = window.dataLayer || [];
+                         window.dataLayer.push({
+                             'event': 'widget_closed',
                              'event_category': 'Chatbot',
                              'event_label': 'Widget fechado'
                          });
@@ -194,7 +188,9 @@
                          if (shouldSendFirstTimeChat) {
                              localStorage.setItem('hasChattedBefore', 'true');
                              localStorage.setItem('lastFirstTimeChatDate', currentDate);
-                             gtag('event', 'first_time_chat', {
+                             window.dataLayer = window.dataLayer || [];
+                             window.dataLayer.push({
+                                 'event': 'first_time_chat',
                                  'event_category': 'Chatbot',
                                  'event_label': 'Primeiro chat'
                              });
@@ -202,7 +198,8 @@
                          }
  
                          // Envia o evento de mensagem enviada para o GA
-                         gtag('event', 'message_sent_to_bot', {
+                         window.dataLayer.push({
+                             'event': 'message_sent_to_bot',
                              'event_category': 'Chatbot',
                              'event_label': 'Mensagem enviada'
                          });
@@ -210,7 +207,9 @@
  
                      Smooch.on('message:received', function() {
                          console.log('Mensagem recebida!');
-                         gtag('event', 'bot_message_received', {
+                         window.dataLayer = window.dataLayer || [];
+                         window.dataLayer.push({
+                             'event': 'bot_message_received',
                              'event_category': 'Chatbot',
                              'event_label': 'Mensagem recebida'
                          });
