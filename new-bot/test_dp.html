@@ -6,23 +6,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chatbot</title>
+  
 
   <style>
+
+#rodape {
+    clear: both;
+    color: #979fa6;
+    background: linear-gradient(rgba(0, 0, 0, .02), #fff);
+    box-shadow: 0 1px rgba(0, 0, 0, .04) inset;
+}
+
+.icone-rodape {
+    padding: 32px 0 20px;
+    margin: 0 25px;
+}
+
     #web-messenger-container {
       bottom: 100px !important;
     }
 
     /* Quando o widget está aberto */
     #web-messenger-container.widget-open {
-      height: calc(100vh - 20px);
-      bottom: 100px !important;
+      height: calc(100vh - 50px);
+      padding-bottom: 50px;
     }
 
 
     /* Para quando o widget está aberto no mobile */
     #web-messenger-container.mobile-open-web-messenger-container {
       bottom: 0 !important;
-      max-height: 100vh;
+      max-height: 200vh;
     }
 
     @media screen and (max-width: 660px) {
@@ -31,7 +45,7 @@
       #web-messenger-container.widget-open {
         width: 100%;
         height: 100vh;
-        bottom: 0;
+        bottom: 0px;
       }
     }
   </style>
@@ -128,7 +142,14 @@
 
 <body>
 
-
+  <footer id="rodape">
+    <span class="icone-rodape">Copyright © <span id="id81">2024</span> Tangerino | Todos os direitos reservados | contato@tangerino.com.br
+    </span>
+    <a href="../../../?wicket:interface=wicket-1:2:language-EN-GB::ILinkListener::" class="icone-inglaterra" style="float: right; margin: 0px 5px;"></a>
+    <a href="../../../?wicket:interface=wicket-1:2:language-PT-PT::ILinkListener::" class="icone-portugal" style="float: right; margin: 0px 5px;"></a>
+    <a href="../../../?wicket:interface=wicket-1:2:language-PT-BR::ILinkListener::" class="icone-brasil" style="float: right; margin: 0px 5px;"></a>
+    <span style="float: right; margin: 0px 5px;">Escolha sua linguagem: </span>
+  </footer>
 
   <script>
     (function () {
@@ -258,7 +279,7 @@
             },
             customText: {
               inputPlaceholder: "Escreva sua mensagem...",
-              prechatCaptureGreetingText: "Olá! Pode me informar seu email?",
+              prechatCaptureGreetingText: "Olá! Pode me informar seu email de acesso ao sistema?",
               prechatCaptureConfirmationText: "Que bom ter você por aqui!",	
               messageDelivered: "Enviada",
               messageRelativeTimeJustNow: "Agora",
@@ -273,10 +294,10 @@
               enabled: true,
               fields: [
                 {
-                  type: "email",
-                  name: "email",
-                  label: "Email de candidatura",
-                  placeholder: "Email de candidatura"
+                  type: "text",
+                  name: "new_code",
+                  label: "Código do empregador",
+                  placeholder: "Se não sabe, diga 'não sei'"
                 }
               ]
             },
@@ -297,7 +318,9 @@
       }
     })();
     </script>
-  
+    
+    
+
   
 
 </body>

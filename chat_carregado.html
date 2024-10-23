@@ -1,0 +1,388 @@
+<html lang="pt-br" class="WyupTvEgzmhTvw2ojaOqtw== JVgyK5bC0jhiOCjVNSm2bA=="><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+
+    <style>
+        #web-messenger-container {
+            bottom: 100px !important;
+        }
+
+        /* Quando o widget está aberto */
+        #web-messenger-container.widget-open {
+            height: calc(100vh - 20px);
+            bottom: 100px !important;
+        }
+
+        /* Para quando o widget está aberto no mobile */
+        #web-messenger-container.mobile-open-web-messenger-container {
+            bottom: 0 !important;
+            max-height: 100vh;
+        }
+
+        @media screen and (max-width: 660px) {
+
+            /* Widget aberto no mobile */
+            #web-messenger-container.widget-open {
+                width: 100%;
+                height: 100vh;
+                bottom: 0;
+            }
+        }
+    </style>
+
+    <script async="" src="https://cdn.smooch.io/smooch.5.6.4.min.js"></script><script>
+        !(function (o, d, s, e, f) {
+            var i,
+                a,
+                p,
+                c = [],
+                h = [];
+
+            function t() {
+                var t = "5";
+                try {
+                    if (!f) throw new Error(t);
+                    var e,
+                        n = "https://cdn.smooch.io/",
+                        r = "smooch";
+                    e = "string" == typeof this.response
+                        ? JSON.parse(this.response)
+                        : this.response;
+                    var o = f.match(/([0-9]+)\.?([0-9]+)?\.?([0-9]+)?/),
+                        s = o && o[1],
+                        i = o && o[2],
+                        a = o && o[3],
+                        p = e["v" + s],
+                        c = e["v" + s + "." + i + ".patch"];
+                    if (e.url || p || c) {
+                        var h = d.getElementsByTagName("script")[0],
+                            u = d.createElement("script");
+                        if (((u.async = !0), a))
+                            u.src = c || n + r + "." + f + ".min.js";
+                        else {
+                            if (!(5 <= s && p)) throw new Error(t);
+                            u.src = p;
+                        }
+                        h.parentNode.insertBefore(u, h);
+                    }
+                } catch (e) {
+                    e.message === t && console.error(e);
+                }
+            } (o[s] = {
+                init: function () {
+                    i = arguments;
+                    var t = {
+                        then: function (e) {
+                            return h.push({ type: "t", next: e }),
+                                t;
+                        }, catch: function (e) {
+                            return h.push({ type: "c", next: e }),
+                                t;
+                        }
+                    };
+                    return t;
+                },
+                on: function () {
+                    c.push(arguments);
+                },
+                render: function () {
+                    a = arguments;
+                },
+                destroy: function () {
+                    p = arguments;
+                }
+            }), (o.__onWebMessengerHostReady__ = function (e) {
+                if ((delete o.__onWebMessengerHostReady__, (o[s] = e), i))
+                    for (var t = e.init.apply(e, i), n = 0; n < h.length; n++) {
+                        var r = h[n];
+                        t = "t" === r.type
+                            ? t.then(r.next)
+                            : t.catch(r.next);
+                    }
+                a && e.render.apply(e, a),
+                    p && e.destroy.apply(e, p);
+                for (n = 0; n < c.length; n++)
+                    e.on.apply(e, c[n]);
+            });
+            var n = new XMLHttpRequest();
+            n.addEventListener("load", t), n.open("GET", "https://" + e + ".webloader.smooch.io/", !0), (n.responseType = "json"), n.send();
+        })(window, document, "Smooch", "668bd805d46b43ab81e18fe4", "5");
+    </script>
+<style type="text/css">
+@font-face {
+  font-weight: 400;
+  font-style:  normal;
+  font-family: circular;
+
+  src: url('chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/fonts/CircularXXWeb-Book.woff2') format('woff2');
+}
+
+@font-face {
+  font-weight: 700;
+  font-style:  normal;
+  font-family: circular;
+
+  src: url('chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/fonts/CircularXXWeb-Bold.woff2') format('woff2');
+}</style></head>
+
+<body>
+  <script>
+    (function () {
+        var listenersAdded = false;
+
+        function typeWriter(element, text, delay = 50) {
+            let i = 0;
+            function typeNext() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeNext, delay);
+                }
+            }
+            typeNext();
+        }
+
+        function getIframeDocument() {
+            var iframe = document.querySelector("iframe#web-messenger-container");
+            return iframe ? (iframe.contentDocument || iframe.contentWindow.document) : null;
+        }
+
+        function processMessage(element, message) {
+            let messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            element.appendChild(messageElement);
+            typeWriter(messageElement, message, 100);
+        }
+
+        function initSmooch() {
+            var currentDate = new Date().toISOString().slice(0, 7); // Formato YYYY-MM
+            var lastFirstTimeChatDate = localStorage.getItem('lastFirstTimeChatDate');
+            var hasChattedBefore = localStorage.getItem('hasChattedBefore') === 'true';
+
+            function removeFooterLogo(iframe) {
+                if (!iframe) {
+                    iframe = document.querySelector("iframe#web-messenger-container");
+                }
+
+                if (iframe) {
+                    var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                    var container = iframeDocument.querySelector("#container");
+                    if (container) {
+                        var wrapper = container.querySelector("#wrapper");
+                        if (wrapper) {
+                            wrapper.style.width = "100%";
+                            wrapper.style.height = "calc(100vh - 20px)";
+                        }
+                    }
+                    var logoContainer = iframeDocument.querySelector(".logo");
+                    if (logoContainer) logoContainer.style.display = "none";
+
+                    if (!listenersAdded) {
+                        listenersAdded = true;
+
+                        Smooch.on('widget:opened', function () {
+                            console.log('Widget is opened!');
+
+                            // Iniciar o chat somente depois que o widget for aberto
+                            Smooch.createConversation({
+                                metadata: {
+                                    isFirstTimeCustomer: !hasChattedBefore,
+                                },
+                            }).then(function (conversation) {
+                                console.log("Conversa iniciada");
+                            });
+
+                            var iframe = document.querySelector("#web-messenger-container");
+                            if (iframe) {
+                                iframe.classList.add("mobile-open-web-messenger-container");
+                                iframe.classList.add("widget-open");
+                            }
+
+                            window.dataLayer = window.dataLayer || [];
+                            window.dataLayer.push({
+                                'event': 'widget_opened',
+                                'event_category': 'Chatbot',
+                                'event_label': 'Widget aberto'
+                            });
+                        });
+
+                        Smooch.on('widget:closed', function () {
+                            console.log('Widget is closed!');
+
+                            var iframe = document.querySelector("#web-messenger-container");
+                            if (iframe) {
+                                iframe.classList.remove("mobile-open-web-messenger-container");
+                                iframe.classList.remove("widget-open");
+                            }
+
+                            window.dataLayer = window.dataLayer || [];
+                            window.dataLayer.push({
+                                'event': 'widget_closed',
+                                'event_category': 'Chatbot',
+                                'event_label': 'Widget fechado'
+                            });
+                        });
+
+                        Smooch.on('message:sent', function () {
+                            console.log('Mensagem enviada!');
+
+                            // Obter a data atual no formato YYYY-MM
+                            var currentDate = new Date().toISOString().slice(0, 7);
+
+                            // Obter a última data de envio de chat registrada no localStorage
+                            var lastFirstTimeChatDate = localStorage.getItem('lastFirstTimeChatDate');
+
+                            // Verificar se é o primeiro chat do mês
+                            if (lastFirstTimeChatDate !== currentDate) {
+                                console.log('first time chat');
+                                // Envia o evento de primeiro chat do mês para o GA4
+                                window.dataLayer = window.dataLayer || [];
+                                window.dataLayer.push({
+                                    'event': 'first_time_chat',
+                                    'event_category': 'Chatbot',
+                                    'event_label': 'Primeiro Chat do Mês'
+                                });
+
+                                // Atualiza o localStorage com a data do chat atual
+                                localStorage.setItem('lastFirstTimeChatDate', currentDate);
+                            }
+
+                            // Envia o evento de mensagem enviada normalmente
+                            window.dataLayer.push({
+                                'event': 'message_sent_to_bot',
+                                'event_category': 'Chatbot',
+                                'event_label': 'Mensagem enviada'
+                            });
+                        });
+
+                        Smooch.on('message:received', function (message) {
+                            console.log('Mensagem recebida!');
+
+                            let iframeDoc = getIframeDocument();
+                            if (iframeDoc) {
+                                let chatContainer = iframeDoc.querySelector(".messages");
+                                if (chatContainer) {
+                                    processMessage(chatContainer, message.text);
+                                }
+                            }
+
+                            window.dataLayer = window.dataLayer || [];
+                            window.dataLayer.push({
+                                'event': 'bot_message_received',
+                                'event_category': 'Chatbot',
+                                'event_label': 'Mensagem recebida'
+                            });
+                        });
+                    }
+                }
+            }
+
+            var delegate = {
+                beforeDisplay: function (message, data) {
+                    if (message.displayName === "Sol" || message.id === "66b20cf33a8bbabbc59bdb24")
+                        message.avatarUrl = "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
+
+                    removeFooterLogo();
+                    return message;
+                }
+            };
+
+            Smooch
+                .init({
+                    integrationId: "66b4c16a05de41f0900493e1",
+                    soundNotificationEnabled: false,
+                    displayStyle: "button",
+                    canUserSeeConversationList: false,
+                    buttonIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+                    customColors: {
+                        brandColor: "3D1A4F",
+                        conversationColor: "80297d"
+                    },
+                    menuItems: {
+                        imageUpload: true,
+                        fileUpload: true,
+                        shareLocation: false
+                    },
+                    customText: {
+                        inputPlaceholder: "Escreva sua mensagem...",
+                        messageDelivered: "Enviada",
+                        messageRelativeTimeJustNow: "Agora",
+                        messageRelativeTimeMinute: "{value}m atrás",
+                        uploadPhoto: "Anexar imagem",
+                        uploadDocument: "Anexar arquivo",
+                    },
+                    businessName: "Sol",
+                    businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+                    delegate: delegate
+                })
+                .then(function (data) {
+                    removeFooterLogo();
+                })
+                .catch(function (err) {
+                    console.error("Erro na inicialização do Smooch", err);
+                });
+        }
+
+        if (window.Smooch) {
+            initSmooch();
+        } else {
+            window.__onWebMessengerHostReady__ = initSmooch;
+        }
+    })();
+</script>
+
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+<div id="loom-companion-mv3" ext-id="liecbddmkiiihnedobmlmillhodjkdmb"><section id="shadow-host-companion"></section></div><link rel="stylesheet" type="text/css" href="https://cdn.smooch.io/smooch.5.6.4.css"><iframe id="web-messenger-container" frameborder="0" allowfullscreen="" scrolling="no" class="sLpKhIF7eEv-snNG6Miz1Q== mobile-open-web-messenger-container widget-open" srcdoc="
+                    <!DOCTYPE html>
+                    <html>
+                        <head>
+                            
+                            <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.smooch.io/frame.5.6.4.css&quot; type=&quot;text/css&quot;  />
+                            <script src=&quot;https://cdn.smooch.io/frame.5.6.4.min.js&quot; async crossorigin=&quot;anonymous&quot; ></script>
+                        </head>
+                        <body>
+                            <div id=&quot;mount&quot;></div>
+                        </body>
+                    </html>
+                    " width="76" height="96"></iframe></body></html>

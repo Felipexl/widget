@@ -8,14 +8,15 @@
   <title>Chatbot</title>
 
   <style>
-    #web-messenger-container {
-      bottom: 100px !important;
+   
+   #web-messenger-container {
+      bottom: 0px !important;
     }
 
     /* Quando o widget está aberto */
     #web-messenger-container.widget-open {
-      height: calc(100vh - 20px);
-      bottom: 100px !important;
+      height: calc(100vh - 50px);
+      padding-bottom: 50px;
     }
 
 
@@ -133,17 +134,17 @@
   <script>
     (function () {
       var listenersAdded = false;
-  
+    
       function initSmooch() {
         var currentDate = new Date().toISOString().slice(0, 7); // Formato YYYY-MM
         var lastFirstTimeChatDate = localStorage.getItem('lastFirstTimeChatDate');
         var hasChattedBefore = localStorage.getItem('hasChattedBefore') === 'true';
-  
+    
         function removeFooterLogo(iframe) {
           if (!iframe) {
             iframe = document.querySelector("iframe#web-messenger-container");
           }
-  
+    
           if (iframe) {
             var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
             var container = iframeDocument.querySelector("#container");
@@ -156,30 +157,19 @@
             }
             var logoContainer = iframeDocument.querySelector(".logo");
             if (logoContainer) logoContainer.style.display = "none";
-  
+    
             if (!listenersAdded) {
               listenersAdded = true;
-  
+    
               Smooch.on('widget:opened', function () {
                 console.log('Widget is opened!');
-
- 
-                
-                // Iniciar o chat somente depois que o widget for aberto
-                Smooch.createConversation({
-                  metadata: {
-                    isFirstTimeCustomer: !hasChattedBefore,
-                  },
-                }).then(function (conversation) {
-                  console.log("Conversa iniciada");
-                });
-  
+    
                 var iframe = document.querySelector("#web-messenger-container");
                 if (iframe) {
                   iframe.classList.add("mobile-open-web-messenger-container");
                   iframe.classList.add("widget-open");
                 }
-  
+    
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
                   'event': 'widget_opened',
@@ -187,16 +177,16 @@
                   'event_label': 'Widget aberto'
                 });
               });
-  
+    
+                 
               Smooch.on('widget:closed', function () {
                 console.log('Widget is closed!');
-  
                 var iframe = document.querySelector("#web-messenger-container");
                 if (iframe) {
                   iframe.classList.remove("mobile-open-web-messenger-container");
                   iframe.classList.remove("widget-open");
                 }
-  
+    
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
                   'event': 'widget_closed',
@@ -204,17 +194,30 @@
                   'event_label': 'Widget fechado'
                 });
               });
-  
+    
               Smooch.on('message:sent', function () {
                 console.log('Mensagem enviada!');
-                window.dataLayer = window.dataLayer || [];
+                var currentDate = new Date().toISOString().slice(0, 7);
+                var lastFirstTimeChatDate = localStorage.getItem('lastFirstTimeChatDate');
+    
+                if (lastFirstTimeChatDate !== currentDate) {
+                  console.log('first time chat');
+                  window.dataLayer.push({
+                    'event': 'first_time_chat',
+                    'event_category': 'Chatbot',
+                    'event_label': 'Primeiro Chat do Mês'
+                  });
+    
+                  localStorage.setItem('lastFirstTimeChatDate', currentDate);
+                }
+    
                 window.dataLayer.push({
                   'event': 'message_sent_to_bot',
                   'event_category': 'Chatbot',
                   'event_label': 'Mensagem enviada'
                 });
               });
-  
+    
               Smooch.on('message:received', function () {
                 console.log('Mensagem recebida!');
                 window.dataLayer = window.dataLayer || [];
@@ -227,17 +230,17 @@
             }
           }
         }
-  
+    
         var delegate = {
           beforeDisplay: function (message, data) {
-            if (message.displayName === "Sol" || message.id === "66b20cf33a8bbabbc59bdb24")
+            if (message.displayName === "Sol" || message.displayName === "Sol - Candidatos" || message.displayName === "Sol - DP") {
               message.avatarUrl = "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
-  
+            }
             removeFooterLogo();
             return message;
           }
         };
-  
+    
         Smooch
           .init({
             integrationId: "66b4c16a05de41f0900493e1",
@@ -256,6 +259,8 @@
             },
             customText: {
               inputPlaceholder: "Escreva sua mensagem...",
+              prechatCaptureGreetingText: "Olá! Pode me informar seu código de empregador?",
+              prechatCaptureConfirmationText: "Que bom ter você por aqui!",	
               messageDelivered: "Enviada",
               messageRelativeTimeJustNow: "Agora",
               messageRelativeTimeMinute: "{value}m atrás",
@@ -264,6 +269,18 @@
             },
             businessName: "Sol",
             businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+            prechatCapture: {
+              avatarUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+              enabled: true,
+              fields: [
+                {
+                  type: "text",
+                  name: "new_code",
+                  label: "Código do empregador",
+                  placeholder: "Se não sabe, diga 'não sei'"
+                }
+              ]
+            },
             delegate: delegate
           })
           .then(function (data) {
@@ -273,14 +290,14 @@
             console.error("Erro na inicialização do Smooch", err);
           });
       }
-  
+    
       if (window.Smooch) {
         initSmooch();
       } else {
         window.__onWebMessengerHostReady__ = initSmooch;
       }
     })();
-  </script>
+    </script>
   
   
 
