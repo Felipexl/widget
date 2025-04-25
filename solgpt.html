@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Sunshine</title>
+
+  <script>
+    !(function (o, d, s, e, f) {
+      var i, a, p, c = [], h = [];
+      function t() {
+        var t = "5";
+        try {
+          if (!f) throw new Error(t);
+          var e, n = "https://cdn.smooch.io/", r = "smooch";
+          e = typeof this.response === "string" ? JSON.parse(this.response) : this.response;
+          var o = f.match(/([0-9]+)\.?([0-9]+)?\.?([0-9]+)?/),
+              s = o && o[1], i = o && o[2], a = o && o[3],
+              p = e["v" + s], c = e["v" + s + "." + i + ".patch"];
+          if (e.url || p || c) {
+            var h = d.getElementsByTagName("script")[0], u = d.createElement("script");
+            u.async = true;
+            u.src = a ? (c || n + r + "." + f + ".min.js") : p;
+            h.parentNode.insertBefore(u, h);
+          }
+        } catch (e) {
+          e.message === t && console.error(e);
+        }
+      }
+      o[s] = {
+        init: function () {
+          i = arguments;
+          var t = {
+            then: function (e) { return h.push({ type: "t", next: e }), t; },
+            catch: function (e) { return h.push({ type: "c", next: e }), t; }
+          };
+          return t;
+        },
+        on: function () { c.push(arguments); },
+        render: function () { a = arguments; },
+        destroy: function () { p = arguments; }
+      };
+      o.__onWebMessengerHostReady__ = function (e) {
+        delete o.__onWebMessengerHostReady__;
+        o[s] = e;
+        if (i) {
+          for (var t = e.init.apply(e, i), n = 0; n < h.length; n++) {
+            var r = h[n];
+            t = r.type === "t" ? t.then(r.next) : t.catch(r.next);
+          }
+        }
+        a && e.render.apply(e, a), p && e.destroy.apply(e, p);
+        for (n = 0; n < c.length; n++) e.on.apply(e, c[n]);
+      };
+      var n = new XMLHttpRequest();
+      n.addEventListener("load", t);
+      n.open("GET", "https://" + e + ".webloader.smooch.io/", true);
+      n.responseType = "json";
+      n.send();
+    })(window, document, "Smooch", "67f92f959f917dfa89df9020", "5");
+  </script>
+  
+</head>
+<body>
+
+<!-- Widget Sunshine Web Messenger -->
+<script>
+    Smooch.init({
+      integrationId: "67f92f959f917dfa89df9020",
+      canUserSeeConversationList: false,
+      businessName: "Solides AI Bot",
+      businessIconUrl: "https://static.zdassets.com/sunco-accounts/sunco-dashboard/v19/43f8f7a97a52a609c850cdbdfac3107a.svg"
+    }).then(function () {
+      console.log("Sunshine Messenger está pronto!");
+  
+      const userId = 'cliente_' + Date.now(); // Pode trocar por algo real depois
+  
+      let widgetAberto = false;
+  
+      const observer = new MutationObserver((mutationsList) => {
+        for (const mutation of mutationsList) {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            const iframe = mutation.target;
+            const classList = iframe.classList;
+  
+            if (classList.contains('widget-open') && !widgetAberto) {
+              widgetAberto = true;
+              console.log("Widget foi aberto!");
+  
+              fetch('https://798a-2804-14c-5bd4-5087-457f-9674-39f5-d675.ngrok-free.app/webhook-test/message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event: 'widget_opened', userId: userId, timestamp: new Date().toISOString() })
+              });
+  
+            } else if (!classList.contains('widget-open') && widgetAberto) {
+              widgetAberto = false;
+              console.log("Widget foi fechado!");
+  
+              fetch('https://798a-2804-14c-5bd4-5087-457f-9674-39f5-d675.ngrok-free.app/webhook-test/message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event: 'widget_closed', userId: userId, timestamp: new Date().toISOString() })
+              });
+            }
+          }
+        }
+      });
+  
+      // Espera o iframe carregar antes de observar
+      const checkIframe = setInterval(() => {
+        const iframe = document.querySelector("#web-messenger-container");
+        if (iframe) {
+          observer.observe(iframe, { attributes: true });
+          clearInterval(checkIframe);
+        }
+      }, 500);
+    });
+  </script>
+
+  <!-- Start of solidesbeneficios1667853307 Zendesk Widget script -->
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=82869d82-b4d8-4cc0-87e8-e4dc08ab296b"> </script>
+<!-- End of solidesbeneficios1667853307 Zendesk Widget script -->
+  
+  
+  
+
+</body>
+</html>
