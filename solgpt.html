@@ -87,7 +87,7 @@
               widgetAberto = true;
               console.log("Widget foi aberto!");
   
-              fetch('https://798a-2804-14c-5bd4-5087-457f-9674-39f5-d675.ngrok-free.app/webhook-test/message', {
+              fetch('https://n8n-e951.onrender.com/webhook-test/messages', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ event: 'widget_opened', userId: userId, timestamp: new Date().toISOString() })
@@ -97,7 +97,7 @@
               widgetAberto = false;
               console.log("Widget foi fechado!");
   
-              fetch('https://798a-2804-14c-5bd4-5087-457f-9674-39f5-d675.ngrok-free.app/webhook-test/message', {
+              fetch('https://n8n-e951.onrender.com/webhook-test/messages', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ event: 'widget_closed', userId: userId, timestamp: new Date().toISOString() })
