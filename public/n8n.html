@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Sol</title>
+
+
+
+    <!-- 1. Estilos (CSS) para customizar o chat -->
+    <style>
+        :root {
+            /* ======================================= */
+            /* === CORES BASEADAS NO WIDGET DA SOL === */
+            /* ======================================= */
+
+            /* Roxo principal da marca 'Sol' (cabeçalho, botão de abrir) */
+            --chat--color-primary: #3D1A4F;
+            --chat--color-primary-shade-50: #351745; /* Um pouco mais escuro para hover */
+            
+            /* Cor do balão de mensagem do USUÁRIO (pode ser o mesmo roxo ou um secundário) */
+            --chat--color-secondary: #80297d; 
+
+            /* Fundo principal do chat */
+            --chat--color-white: #ffffff;
+            
+            /* Fundo dos balões de mensagem do BOT (cinza bem claro) */
+            --chat--color-light: #f2f4f8; 
+
+            /* Cor do texto do BOT (quase preto) */
+            --chat--color-dark: #2d3748;
+
+            /* Cor do texto do cabeçalho ("Sol") */
+            --chat--header--color: var(--chat--color-white);
+
+
+            /* ======================================= */
+            /* === LAYOUT E FORMAS =================== */
+            /* ======================================= */
+
+            /* Deixa a janela e os balões com cantos mais arredondados */
+            --chat--border-radius: 0.75rem; /* ~12px */
+
+            /* Fundo principal da janela de conversa */
+            --chat--body--background: var(--chat--color-white);
+
+            /* Cabeçalho com a cor primária */
+            --chat--header--background: var(--chat--color-primary);
+            --chat--heading--font-size: 1.2em; /* Diminui um pouco o tamanho de "Olá!" */
+            
+            /* Botão de abrir o chat */
+            --chat--toggle--background: var(--chat--color-primary);
+            --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+            
+            /* Balão de mensagem do BOT */
+            --chat--message--bot--background: var(--chat--color-light);
+            --chat--message--bot--color: var(--chat--color-dark);
+            
+            /* Balão de mensagem do USUÁRIO */
+            --chat--message--user--background: var(--chat--color-secondary);
+            --chat--message--user--color: var(--chat--color-white);
+
+            /* Campo de digitar a mensagem */
+            --chat--input--border-radius: 2rem; /* Deixa o campo com pontas redondas (pílula) */
+            --chat--input--padding: 1rem;
+        }
+
+        /* Ajuste fino para o avatar (opcional, mas deixa mais parecido) */
+        .n8n-chat-message-avatar img {
+            width: 32px;
+            height: 32px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 2. Importação e inicialização do Chat da n8n -->
+    <script type="module">
+        // Importa a função para criar o chat a partir da URL do CDN
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        // Cria e configura o chat
+        createChat({
+            // -------- CONFIGURAÇÃO ESSENCIAL --------
+            webhookUrl: 'https://n8n-e951.onrender.com/webhook/f75f0084-5926-431b-ac76-990cd79082c8/chat', 
+            
+            // -------- CUSTOMIZAÇÃO --------
+            // Mensagens iniciais que o bot envia
+            initialMessages: [
+                'Olá! Pode me informar seu email?'
+            ],
+
+            // Mostra uma tela de boas-vindas que o usuário precisa clicar para iniciar
+            showWelcomeScreen: true,
+
+            // Textos da interface (traduzidos e adaptados)
+            i18n: {
+                en: {
+                    title: 'Sol', // Nome que aparece no cabeçalho
+                    subtitle: "Que bom ter você por aqui!", // Subtítulo
+                    getStarted: 'Nova Conversa',
+                    inputPlaceholder: 'Escreva sua mensagem...',
+                    footer: '', // Deixe vazio para não ter rodapé customizado
+                    closeButtonTooltip: 'Fechar o chat',
+                },
+            },
+        });
+    </script>
+
+</body>
+</html>

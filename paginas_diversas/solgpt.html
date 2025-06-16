@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Sunshine</title>
+
+  <script>
+    !(function (o, d, s, e, f) {
+      var i, a, p, c = [], h = [];
+      function t() {
+        var t = "5";
+        try {
+          if (!f) throw new Error(t);
+          var e, n = "https://cdn.smooch.io/", r = "smooch";
+          e = typeof this.response === "string" ? JSON.parse(this.response) : this.response;
+          var o = f.match(/([0-9]+)\.?([0-9]+)?\.?([0-9]+)?/),
+              s = o && o[1], i = o && o[2], a = o && o[3],
+              p = e["v" + s], c = e["v" + s + "." + i + ".patch"];
+          if (e.url || p || c) {
+            var h = d.getElementsByTagName("script")[0], u = d.createElement("script");
+            u.async = true;
+            u.src = a ? (c || n + r + "." + f + ".min.js") : p;
+            h.parentNode.insertBefore(u, h);
+          }
+        } catch (e) {
+          e.message === t && console.error(e);
+        }
+      }
+      o[s] = {
+        init: function () {
+          i = arguments;
+          var t = {
+            then: function (e) { return h.push({ type: "t", next: e }), t; },
+            catch: function (e) { return h.push({ type: "c", next: e }), t; }
+          };
+          return t;
+        },
+        on: function () { c.push(arguments); },
+        render: function () { a = arguments; },
+        destroy: function () { p = arguments; }
+      };
+      o.__onWebMessengerHostReady__ = function (e) {
+        delete o.__onWebMessengerHostReady__;
+        o[s] = e;
+        if (i) {
+          for (var t = e.init.apply(e, i), n = 0; n < h.length; n++) {
+            var r = h[n];
+            t = r.type === "t" ? t.then(r.next) : t.catch(r.next);
+          }
+        }
+        a && e.render.apply(e, a), p && e.destroy.apply(e, p);
+        for (n = 0; n < c.length; n++) e.on.apply(e, c[n]);
+      };
+      var n = new XMLHttpRequest();
+      n.addEventListener("load", t);
+      n.open("GET", "https://" + e + ".webloader.smooch.io/", true);
+      n.responseType = "json";
+      n.send();
+    })(window, document, "Smooch", "67f92f959f917dfa89df9020", "5");
+  </script>
+  
+</head>
+<body>
+
+<!-- Widget Sunshine Web Messenger -->
+ <script>
+    (function () {
+      var listenersAdded = false;
+    
+      function initSmooch() {
+        var currentDate = new Date().toISOString().slice(0, 7); // Formato YYYY-MM
+        var lastFirstTimeChatDate = localStorage.getItem('lastFirstTimeChatDate');
+        var hasChattedBefore = localStorage.getItem('hasChattedBefore') === 'true';
+    
+        function removeFooterLogo(iframe) {
+          if (!iframe) {
+            iframe = document.querySelector("iframe#web-messenger-container");
+          }
+    
+          if (iframe) {
+            var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            var container = iframeDocument.querySelector("#container");
+            if (container) {
+              var wrapper = container.querySelector("#wrapper");
+              if (wrapper) {
+                wrapper.style.width = "100%";
+                wrapper.style.height = "calc(100vh - 20px)";
+              }
+            }
+            var logoContainer = iframeDocument.querySelector(".logo");
+            if (logoContainer) logoContainer.style.display = "none";
+    
+            if (!listenersAdded) {
+              listenersAdded = true;
+    
+              Smooch.on('widget:opened', function () {
+                console.log('Widget is opened!');
+    
+                var iframe = document.querySelector("#web-messenger-container");
+                if (iframe) {
+                  iframe.classList.add("mobile-open-web-messenger-container");
+                  iframe.classList.add("widget-open");
+                }
+    
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  'event': 'widget_opened',
+                  'event_category': 'Chatbot',
+                  'event_label': 'Widget aberto'
+                });
+              });
+    
+                 
+              Smooch.on('widget:closed', function () {
+                console.log('Widget is closed!');
+                var iframe = document.querySelector("#web-messenger-container");
+                if (iframe) {
+                  iframe.classList.remove("mobile-open-web-messenger-container");
+                  iframe.classList.remove("widget-open");
+                }
+    
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  'event': 'widget_closed',
+                  'event_category': 'Chatbot',
+                  'event_label': 'Widget fechado'
+                });
+              });
+    
+              Smooch.on('message:sent', function () {
+                console.log('Mensagem enviada!');
+                var currentDate = new Date().toISOString().slice(0, 7);
+                var lastFirstTimeChatDate = localStorage.getItem('lastFirstTimeChatDate');
+    
+                if (lastFirstTimeChatDate !== currentDate) {
+                  console.log('first time chat');
+                  window.dataLayer.push({
+                    'event': 'first_time_chat',
+                    'event_category': 'Chatbot',
+                    'event_label': 'Primeiro Chat do Mês'
+                  });
+    
+                  localStorage.setItem('lastFirstTimeChatDate', currentDate);
+                }
+    
+                window.dataLayer.push({
+                  'event': 'message_sent_to_bot',
+                  'event_category': 'Chatbot',
+                  'event_label': 'Mensagem enviada'
+                });
+              });
+    
+              Smooch.on('message:received', function () {
+                console.log('Mensagem recebida!');
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                  'event': 'bot_message_received',
+                  'event_category': 'Chatbot',
+                  'event_label': 'Mensagem recebida'
+                });
+              });
+            }
+          }
+        }
+    
+        var delegate = {
+          beforeDisplay: function (message, data) {
+            if (message.displayName === "Sol" || message.displayName === "Sol - Candidatos" || message.displayName === "Sol - DP") {
+              message.avatarUrl = "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png";
+            }
+            removeFooterLogo();
+            return message;
+          }
+        };
+    
+        Smooch
+          .init({
+            integrationId: "67f92f959f917dfa89df9020",
+            integrationOrder: [],
+            soundNotificationEnabled: true,
+            displayStyle: "button",
+            canUserSeeConversationList: false,
+            buttonIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+            customColors: {
+              brandColor: "3D1A4F",
+              conversationColor: "80297d"
+            },
+            menuItems: {
+              imageUpload: true,
+              fileUpload: true,
+              shareLocation: false
+            },
+            customText: {
+              inputPlaceholder: "Escreva sua mensagem...",
+              prechatCaptureGreetingText: "Olá! Pode me dizer seu nome e email?",
+              prechatCaptureConfirmationText: "Que bom ter você por aqui!",	
+              messageDelivered: "Enviada",
+              messageRelativeTimeJustNow: "Agora",
+              messageRelativeTimeMinute: "{value}m atrás",
+              uploadPhoto: "Anexar imagem",
+              uploadDocument: "Anexar arquivo",
+            },
+            businessName: "Sol",
+            businessIconUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+            prechatCapture: {
+              avatarUrl: "https://s3.amazonaws.com/kommunicate-prod.s3/profile_pic/17199458040551719945804085-image204.png",
+              enabled: true,
+              fields: [
+                {
+                  type: "text",
+                  name: "name",
+                  label: "Nome",
+                  placeholder: "Seu nome"
+                },
+                {
+                  type: "email",
+                  name: "email",
+                  label: "Email de candidatura",
+                  placeholder: "Email de candidatura"
+                }
+              ]
+            },
+            delegate: delegate
+          })
+          .then(function (data) {
+            removeFooterLogo();
+          })
+          .catch(function (err) {
+            console.error("Erro na inicialização do Smooch", err);
+          });
+      }
+    
+      if (window.Smooch) {
+        initSmooch();
+      } else {
+        window.__onWebMessengerHostReady__ = initSmooch;
+      }
+    })();
+    </script>
+
+
+  
+  
+  
+
+</body>
+</html>
